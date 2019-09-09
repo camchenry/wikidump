@@ -9,7 +9,7 @@ mod tests {
     }
 
     #[test]
-    fn can_parse_simplewiki_dump() {
+    fn can_parse_simplewiki_siteinfo() {
         let parser = DumpParser::new();
 
         let site = parser
@@ -18,5 +18,23 @@ mod tests {
 
         assert_eq!(site.name, "Wikipedia");
         assert_eq!(site.url, "https://simple.wikipedia.org/wiki/Main_Page");
+    }
+
+    #[test]
+    fn can_parse_simplewiki_pages() {
+        let parser = DumpParser::new();
+
+        let site = parser
+            .parse_file("tests/simplewiki.xml")
+            .expect("Could not parse simplewiki dump");
+
+        assert!(!site.pages.is_empty(), "Site page list is empty");
+
+        let page = site
+            .pages
+            .iter()
+            .find(|&p| p.title == "Art".to_string())
+            .expect("Could not fetch example page");
+        assert_eq!(page.title, "Art");
     }
 }
