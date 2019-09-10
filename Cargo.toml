@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 quick-xml = "0.16.1"
+parse_wiki_text = "0.1.5"

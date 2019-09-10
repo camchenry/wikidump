@@ -1,7 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use std::fs::File;
-    use wikidump::{DumpParser, Site};
+    use wikidump::DumpParser;
 
     #[test]
     fn can_create_parser() {
@@ -36,5 +35,20 @@ mod tests {
             .find(|&p| p.title == "Art".to_string())
             .expect("Could not fetch example page");
         assert_eq!(page.title, "Art");
+
+        assert!(!page.revisions.is_empty(), "Found no revisions for page");
+
+        let revision = page
+            .revisions
+            .first()
+            .expect("Could not get first revision");
+
+        assert!(revision
+            .text
+            .split(" ")
+            .collect::<Vec<&str>>()
+            .starts_with(&vec!(
+                "Art", "and", "crafts", "is", "a", "creative", "activity"
+            )));
     }
 }
