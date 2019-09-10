@@ -28,6 +28,7 @@ mod tests {
             .expect("Could not parse simplewiki dump");
 
         assert!(!site.pages.is_empty(), "Site page list is empty");
+        assert_eq!(site.pages.len(), 7);
 
         let page = site
             .pages
@@ -37,6 +38,7 @@ mod tests {
         assert_eq!(page.title, "Art");
 
         assert!(!page.revisions.is_empty(), "Found no revisions for page");
+        assert_eq!(page.revisions.len(), 1);
 
         let revision = page
             .revisions
