@@ -50,9 +50,9 @@ impl Site {
     }
 }
 
-#[derive(Debug)]
 pub struct DumpParser {
     process_wiki_text: bool,
+    wiki_config: Configuration,
 }
 
 #[derive(Debug, PartialEq)]
@@ -63,14 +63,20 @@ enum ParserState {
 }
 
 impl DumpParser {
-    pub fn new() -> DumpParser {
+    pub fn new<'c>() -> DumpParser {
         DumpParser {
             process_wiki_text: true,
+            wiki_config: Configuration::default(),
         }
     }
 
     pub fn process_text(mut self, value: bool) -> Self {
         self.process_wiki_text = value;
+        self
+    }
+
+    pub fn use_config(mut self, config_source: ConfigurationSource) -> Self {
+        self.wiki_config = Configuration::new(&config_source);
         self
     }
 
@@ -135,8 +141,7 @@ impl DumpParser {
 
                                     if self.process_wiki_text {
                                         // @TODO: Allow swapping the configuration
-                                        let parsed_result =
-                                            simplewiki_configuration().parse(text.as_str());
+                                        let parsed_result = self.wiki_config.parse(text.as_str());
 
                                         let text = get_text_from_nodes(parsed_result.nodes);
 
@@ -194,8 +199,8 @@ impl DumpParser {
     }
 }
 
-pub fn simplewiki_configuration() -> Configuration {
-    Configuration::new(&ConfigurationSource {
+pub fn simplewiki_configuration<'c>() -> ConfigurationSource<'c> {
+    ConfigurationSource {
         category_namespaces: &["category"],
         extension_tags: &[
             "categorytree",
@@ -278,7 +283,7 @@ pub fn simplewiki_configuration() -> Configuration {
             "xmpp:",
         ],
         redirect_magic_words: &["REDIRECT"],
-    })
+    }
 }
 
 pub fn get_text_from_nodes(nodes: Vec<Node>) -> String {

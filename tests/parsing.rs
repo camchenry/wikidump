@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use wikidump::DumpParser;
+    use wikidump::{simplewiki_configuration, DumpParser};
 
     #[test]
     fn can_create_parser() {
@@ -9,12 +9,14 @@ mod tests {
 
     #[test]
     fn can_set_parser_options() {
-        let parser = DumpParser::new().process_text(true);
+        let parser = DumpParser::new()
+            .process_text(true)
+            .use_config(simplewiki_configuration());
     }
 
     #[test]
     fn can_parse_simplewiki_siteinfo() {
-        let parser = DumpParser::new();
+        let parser = DumpParser::new().use_config(simplewiki_configuration());
 
         let site = parser
             .parse_file("tests/simplewiki.xml")
@@ -26,7 +28,9 @@ mod tests {
 
     #[test]
     fn can_parse_simplewiki_pages() {
-        let parser = DumpParser::new();
+        let parser = DumpParser::new()
+            .process_text(true)
+            .use_config(simplewiki_configuration());
 
         let site = parser
             .parse_file("tests/simplewiki.xml")
