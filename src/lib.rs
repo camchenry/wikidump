@@ -41,7 +41,9 @@ pub struct Site {
 }
 
 #[derive(Debug)]
-pub struct DumpParser {}
+pub struct DumpParser {
+    process_wiki_text: bool,
+}
 
 #[derive(Debug, PartialEq)]
 enum ParserState {
@@ -52,7 +54,14 @@ enum ParserState {
 
 impl DumpParser {
     pub fn new() -> DumpParser {
-        DumpParser {}
+        DumpParser {
+            process_wiki_text: true,
+        }
+    }
+
+    pub fn process_text(mut self, value: bool) -> Self {
+        self.process_wiki_text = value;
+        self
     }
 
     pub fn parse_file<P>(&self, dump: P) -> Result<Site, Exception>
@@ -119,12 +128,17 @@ impl DumpParser {
                                         .read_text(element_name, &mut text_buf)
                                         .expect("Could not get revision text");
 
-                                    let parsed_result =
-                                        simplewiki_configuration().parse(text.as_str());
+                                    if self.process_wiki_text {
+                                        // @TODO: Allow swapping the configuration
+                                        let parsed_result =
+                                            simplewiki_configuration().parse(text.as_str());
 
-                                    let text = get_text_from_nodes(parsed_result.nodes);
+                                        let text = get_text_from_nodes(parsed_result.nodes);
 
-                                    current_page_revision.text = text;
+                                        current_page_revision.text = text;
+                                    } else {
+                                        current_page_revision.text = text;
+                                    }
 
                                     hierarchy.pop(); // Pop hierarchy because we processed this node in-place.
                                 }

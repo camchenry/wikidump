@@ -8,6 +8,11 @@ mod tests {
     }
 
     #[test]
+    fn can_set_parser_options() {
+        let parser = DumpParser::new().process_text(true);
+    }
+
+    #[test]
     fn can_parse_simplewiki_siteinfo() {
         let parser = DumpParser::new();
 
@@ -52,5 +57,28 @@ mod tests {
             .starts_with(&vec!(
                 "Art", "and", "crafts", "is", "a", "creative", "activity"
             )));
+    }
+
+    #[test]
+    fn can_disable_text_parsing() {
+        let parser = DumpParser::new().process_text(false);
+
+        let site = parser
+            .parse_file("tests/simplewiki.xml")
+            .expect("Could not parse simplewiki dump");
+
+        let page = site
+            .pages
+            .iter()
+            .find(|&p| p.title == "Art".to_string())
+            .expect("Could not fetch example page");
+
+        let revision = page
+            .revisions
+            .first()
+            .expect("Could not get first revision");
+
+        assert!(revision.text.contains("[["));
+        assert!(revision.text.contains("]]"));
     }
 }
