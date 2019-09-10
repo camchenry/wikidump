@@ -40,6 +40,16 @@ pub struct Site {
     pub pages: Vec<Page>,
 }
 
+impl Site {
+    pub fn new() -> Site {
+        Site {
+            name: "".to_string(),
+            url: "".to_string(),
+            pages: vec![],
+        }
+    }
+}
+
 #[derive(Debug)]
 pub struct DumpParser {
     process_wiki_text: bool,
@@ -72,12 +82,7 @@ impl DumpParser {
         reader.trim_text(true);
 
         // TODO
-        let mut site = Site {
-            name: "".to_string(),
-            url: "".to_string(),
-            pages: vec![],
-        };
-
+        let mut site = Site::new();
         let mut state = ParserState::None;
         let mut buf = Vec::new();
         let mut text_buf = Vec::new();
