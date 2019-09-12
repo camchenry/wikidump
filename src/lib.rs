@@ -64,7 +64,7 @@ impl Site {
 }
 
 /// A parser which can process uncompressed Mediawiki XML dumps (backups).
-pub struct DumpParser {
+pub struct Parser {
     /// If true, the wiki text will be parsed and turned into simple text which
     /// could be read naturally.
     process_wiki_text: bool,
@@ -79,10 +79,10 @@ enum ParserState {
     Page,
 }
 
-impl DumpParser {
+impl Parser {
     /// Construct a new parser with the default settings.
-    pub fn new<'c>() -> DumpParser {
-        DumpParser {
+    pub fn new<'c>() -> Parser {
+        Parser {
             process_wiki_text: true,
             wiki_config: Configuration::default(),
         }
