@@ -6,6 +6,7 @@ use std::path::Path;
 
 type Exception = Box<dyn std::error::Error + 'static>;
 
+/// Represents a wiki page.
 #[derive(Debug, Clone)]
 pub struct Page {
     pub title: String,
@@ -13,7 +14,8 @@ pub struct Page {
 }
 
 impl Page {
-    pub fn new() -> Page {
+    /// Creates a new page with no data.
+    fn new() -> Page {
         Page {
             title: "".to_string(),
             revisions: vec![],
@@ -21,28 +23,38 @@ impl Page {
     }
 }
 
+/// Represents a specific revision of a page. This means a certain version of
+/// the page a specific time with some text contents which was created by
+/// some contributor.
 #[derive(Debug, Clone)]
 pub struct PageRevision {
+    /// The text content of the page. Depending on whether the parser is
+    /// processing wiki text or not, this could either be the raw wiki text
+    /// or it could be an interpreted representation.
     pub text: String,
 }
 
 impl PageRevision {
-    pub fn new() -> PageRevision {
+    fn new() -> PageRevision {
         PageRevision {
             text: "".to_string(),
         }
     }
 }
 
+/// Represents a Mediawiki website, like Wikipedia, for example.
 #[derive(Debug)]
 pub struct Site {
+    /// The name of the website, e.g., "Wikipedia".
     pub name: String,
+    /// The base URL of the website, e.g., "https://en.wikipedia.org/wiki/Main_Page".
     pub url: String,
+    /// The wiki pages belonging to the website.
     pub pages: Vec<Page>,
 }
 
 impl Site {
-    pub fn new() -> Site {
+    fn new() -> Site {
         Site {
             name: "".to_string(),
             url: "".to_string(),
@@ -51,8 +63,12 @@ impl Site {
     }
 }
 
+/// A parser which can process uncompressed Mediawiki XML dumps (backups).
 pub struct DumpParser {
+    /// If true, the wiki text will be parsed and turned into simple text which
+    /// could be read naturally.
     process_wiki_text: bool,
+    /// The specific wiki configuration for parsing.
     wiki_config: Configuration,
 }
 
@@ -64,6 +80,7 @@ enum ParserState {
 }
 
 impl DumpParser {
+    /// Construct a new parser with the default settings.
     pub fn new<'c>() -> DumpParser {
         DumpParser {
             process_wiki_text: true,
@@ -71,16 +88,19 @@ impl DumpParser {
         }
     }
 
+    // TODO: document
     pub fn process_text(mut self, value: bool) -> Self {
         self.process_wiki_text = value;
         self
     }
 
+    // TODO: document
     pub fn use_config(mut self, config_source: ConfigurationSource) -> Self {
         self.wiki_config = Configuration::new(&config_source);
         self
     }
 
+    // TODO: document
     pub fn parse_file<P>(&self, dump: P) -> Result<Site, Exception>
     where
         P: AsRef<Path>,
@@ -200,6 +220,7 @@ impl DumpParser {
     }
 }
 
+// TODO: document
 fn get_text_from_nodes(nodes: Vec<Node>) -> String {
     let mut node_text = "".to_string();
 
