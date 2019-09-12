@@ -29,9 +29,7 @@ mod tests {
 
     #[test]
     fn can_parse_simplewiki_pages() {
-        let parser = Parser::new()
-            .process_text(true)
-            .use_config(config::wikipedia::simple_english());
+        let parser = Parser::new().use_config(config::wikipedia::simple_english());
 
         let site = parser
             .parse_file("tests/simplewiki.xml")
@@ -85,5 +83,58 @@ mod tests {
 
         assert!(revision.text.contains("[["));
         assert!(revision.text.contains("]]"));
+    }
+
+    // Wikipedia tests
+    #[test]
+    fn can_parse_enwiki_siteinfo() {
+        let parser = Parser::new().use_config(config::wikipedia::english());
+
+        let site = parser
+            .parse_file("tests/enwiki-articles-partial.xml")
+            .expect("Could not parse enwiki dump");
+
+        assert_eq!(site.name, "Wikipedia");
+        assert_eq!(site.url, "https://en.wikipedia.org/wiki/Main_Page");
+    }
+
+    #[test]
+    fn can_parse_enwiki_pages() {
+        let parser = Parser::new().use_config(config::wikipedia::english());
+
+        let site = parser
+            .parse_file("tests/enwiki-articles-partial.xml")
+            .expect("Could not parse simplewiki dump");
+
+        assert!(!site.pages.is_empty(), "Site page list is empty");
+        assert_eq!(site.pages.len(), 11);
+
+        let page = site
+            .pages
+            .iter()
+            .find(|&p| p.title == "Ricky Minard".to_string())
+            .expect("Could not fetch example page");
+        assert_eq!(page.title, "Ricky Minard");
+
+        assert!(!page.revisions.is_empty(), "Found no revisions for page");
+        assert_eq!(page.revisions.len(), 1);
+
+        let revision = page
+            .revisions
+            .first()
+            .expect("Could not get first revision");
+
+        assert_eq!(
+            revision.text.split(" ").take(7).collect::<Vec<&str>>(),
+            vec!(
+                "Ricky",
+                "Donell",
+                "Minard",
+                "Jr.",
+                "(born",
+                "September",
+                "11,"
+            )
+        );
     }
 }
