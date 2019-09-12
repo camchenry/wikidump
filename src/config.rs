@@ -1,7 +1,7 @@
 pub mod wikipedia {
     use parse_wiki_text::ConfigurationSource;
 
-    pub fn simple_english<'c>() -> ConfigurationSource<'c> {
+    pub fn english<'c>() -> ConfigurationSource<'c> {
         ConfigurationSource {
             category_namespaces: &["category"],
             extension_tags: &[
@@ -86,5 +86,9 @@ pub mod wikipedia {
             ],
             redirect_magic_words: &["REDIRECT"],
         }
+    }
+
+    pub fn simple_english<'c>() -> ConfigurationSource<'c> {
+        english()
     }
 }

@@ -1,0 +1,463 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.10/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.10/ http://www.mediawiki.org/xml/export-0.10.xsd" version="0.10" xml:lang="en">
+  <siteinfo>
+    <sitename>Wikipedia</sitename>
+    <dbname>enwiki</dbname>
+    <base>https://en.wikipedia.org/wiki/Main_Page</base>
+    <generator>MediaWiki 1.34.0-wmf.19</generator>
+    <case>first-letter</case>
+    <namespaces>
+      <namespace key="-2" case="first-letter">Media</namespace>
+      <namespace key="-1" case="first-letter">Special</namespace>
+      <namespace key="0" case="first-letter" />
+      <namespace key="1" case="first-letter">Talk</namespace>
+      <namespace key="2" case="first-letter">User</namespace>
+      <namespace key="3" case="first-letter">User talk</namespace>
+      <namespace key="4" case="first-letter">Wikipedia</namespace>
+      <namespace key="5" case="first-letter">Wikipedia talk</namespace>
+      <namespace key="6" case="first-letter">File</namespace>
+      <namespace key="7" case="first-letter">File talk</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">MediaWiki talk</namespace>
+      <namespace key="10" case="first-letter">Template</namespace>
+      <namespace key="11" case="first-letter">Template talk</namespace>
+      <namespace key="12" case="first-letter">Help</namespace>
+      <namespace key="13" case="first-letter">Help talk</namespace>
+      <namespace key="14" case="first-letter">Category</namespace>
+      <namespace key="15" case="first-letter">Category talk</namespace>
+      <namespace key="100" case="first-letter">Portal</namespace>
+      <namespace key="101" case="first-letter">Portal talk</namespace>
+      <namespace key="108" case="first-letter">Book</namespace>
+      <namespace key="109" case="first-letter">Book talk</namespace>
+      <namespace key="118" case="first-letter">Draft</namespace>
+      <namespace key="119" case="first-letter">Draft talk</namespace>
+      <namespace key="446" case="first-letter">Education Program</namespace>
+      <namespace key="447" case="first-letter">Education Program talk</namespace>
+      <namespace key="710" case="first-letter">TimedText</namespace>
+      <namespace key="711" case="first-letter">TimedText talk</namespace>
+      <namespace key="828" case="first-letter">Module</namespace>
+      <namespace key="829" case="first-letter">Module talk</namespace>
+      <namespace key="2300" case="first-letter">Gadget</namespace>
+      <namespace key="2301" case="first-letter">Gadget talk</namespace>
+      <namespace key="2302" case="case-sensitive">Gadget definition</namespace>
+      <namespace key="2303" case="case-sensitive">Gadget definition talk</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>Konica Minolta Cup</title>
+    <ns>0</ns>
+    <id>7697605</id>
+    <revision>
+      <id>380827672</id>
+      <parentid>377074437</parentid>
+      <timestamp>2010-08-25T01:11:11Z</timestamp>
+      <contributor>
+        <username>Surge79uwf</username>
+        <id>265372</id>
+      </contributor>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve">'''Konica Minolta Cup''' may refer to
+* [[Japan LPGA Championship]] Konica Minolta Cup, was a golf competition
+* [[WRU Challenge Cup]], a Welsh rugby union competition
+
+'''Konica Cup''' (before the Minolta merger) may refer to
+* [[Konica Cup (football)]], a football competition
+
+{{disambig}}</text>
+      <sha1>orasgh0bid09rp4x7ij4jwxt6g83nrx</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Wikipedia:DABMOS</title>
+    <ns>4</ns>
+    <id>7697606</id>
+    <redirect title="Wikipedia:Manual of Style/Disambiguation pages" />
+    <revision>
+      <id>777982147</id>
+      <parentid>586593639</parentid>
+      <timestamp>2017-04-30T13:37:40Z</timestamp>
+      <contributor>
+        <username>AnomieBOT</username>
+        <id>7611264</id>
+      </contributor>
+      <minor />
+      <comment>[[User:AnomieBOT/docs/TemplateSubster|Substing templates]]: {{Redr}}. See [[User:AnomieBOT/docs/TemplateSubster]] for info.</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve">#REDIRECT [[Wikipedia:Manual of Style/Disambiguation pages]]
+
+{{redirect category shell|{{R to project}}{{R sub}}{rsh}}}</text>
+      <sha1>abnffdz64pt2qfbxono6to40w5fi6hq</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Archer (typeface)</title>
+    <ns>0</ns>
+    <id>7697611</id>
+    <revision>
+      <id>888105288</id>
+      <parentid>888103530</parentid>
+      <timestamp>2019-03-16T23:07:35Z</timestamp>
+      <contributor>
+        <username>Blythwood</username>
+        <id>18364158</id>
+      </contributor>
+      <minor />
+      <comment>Reverted 1 edit by [[Special:Contributions/70.44.239.0|70.44.239.0]] ([[User talk:70.44.239.0|talk]]) to last revision by Blythwood ([[WP:TW|TW]])</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve">{{Multiple issues|
+{{original research|date=June 2010}}
+{{notability|date=June 2010}}
+}}
+
+{{Infobox typeface
+| name = Archer
+| image = ArcherSpec.svg
+| style = [[Serif]]
+| classifications = [[Slab serif|Humanist slab serif]]
+| date = 2001
+| creator = [[Tobias Frere-Jones]]&lt;br&gt;
+[[Jonathan Hoefler]]
+| foundry = [[Hoefler &amp; Frere-Jones]]
+}}
+
+'''Archer''' is a [[slab serif]] typeface designed in 2001 by [[Tobias Frere-Jones]] and [[Jonathan Hoefler]] for use in ''[[Martha Stewart Living]]'' magazine. It was later released by [[Hoefler &amp; Frere-Jones]] for commercial licensing.
+
+==Structure==
+
+The typeface is a [[Slab_serif#Geometric_model|geometric]] slab serif, one with a geometric design similar to sans-serif fonts. It takes inspiration from mid-twentieth century designs such as [[Rockwell (typeface)|Rockwell]].
+
+The face is unique for combining the geometric structure of twentieth-century European slab-serifs but imbuing the face with a domestic, less strident tone of voice. [[Ball terminal|Balls]] were added to the upper terminals on letters such as ''C'' and ''G'' to increase its charm.&lt;ref&gt;{{cite web|last1=Devroye|first1=Luc|title=Jonathan Hoefler|url=http://luc.devroye.org/fonts-27370.html|publisher=McGill University|accessdate=29 September 2014}}&lt;/ref&gt; [[Italic type|Italics]] are true italic designs, with flourishes influenced by calligraphy, an unusual feature for geometric slab serif designs. As with many [[Hoefler &amp; Frere-Jones]] designs, it was released in a wide range of weights from hairline to bold, reflecting its design goal as a typeface for complex magazines.&lt;ref name=&quot;Typographica review&quot;&gt;{{cite web|last1=Earls|first1=David John|title=Archer|url=http://typographica.org/typeface-reviews/archer/|website=Typographica|accessdate=11 July 2015}}&lt;/ref&gt;
+
+==Uses==
+The typeface has been used for, among other things, branding for [[Wells Fargo]] and is a main font for the ''[[San Francisco Chronicle]]'' and [[Wes Anderson]]'s film ''[[The Grand Budapest Hotel]]''.&lt;ref&gt;{{cite web|last1=Adams|first1=Lauren|title=Is Archer's Use on Target?|url=http://www.aiga.org/is-archers-use-on-target/|publisher=AIGI}}&lt;/ref&gt; It is also the current font used for titles and body text by the [[Design Observer]] website.
+
+==References==
+{{Reflist}}
+
+==External links==
+*[http://www.typography.com/fonts/font_overview.php?productLineID=100033 Archer] (H&amp;FJ website)
+
+[[Category:Hoefler &amp; Frere-Jones typefaces]]
+[[Category:Typefaces designed by Tobias Frere-Jones]]
+[[Category:Typefaces designed by Jonathan Hoefler]]
+[[Category:Typefaces and fonts introduced in 2001]]
+[[Category:Digital typefaces]]
+[[Category:Typefaces with text figures]]
+[[Category:Geometric slab-serif typefaces]]
+
+{{typography-stub}}</text>
+      <sha1>7hamo17h91ounroroe90lpjrrqy9gng</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Stockton Airport</title>
+    <ns>0</ns>
+    <id>7697612</id>
+    <revision>
+      <id>865514439</id>
+      <parentid>479135040</parentid>
+      <timestamp>2018-10-24T11:44:29Z</timestamp>
+      <contributor>
+        <username>Narky Blert</username>
+        <id>22041646</id>
+      </contributor>
+      <minor />
+      <comment>ce</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve">'''Stockton Airport''' may refer to:
+
+* [[Stockton Metropolitan Airport]] in Stockton, California, United States (FAA: SCK)
+* [[Stockton Municipal Airport (Kansas)]] in Stockton, Kansas, United States (FAA: 0S2)
+* [[Stockton Municipal Airport (Missouri)]] in Stockton, Missouri, United States (FAA: MO3)
+
+==See also==
+* [[Stockton Municipal Airport (disambiguation)]]
+
+{{airport disambiguation}}</text>
+      <sha1>qxcai6tfmnb22471c9xe3qamuejvst9</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Category:Protected areas of Canada</title>
+    <ns>14</ns>
+    <id>7697615</id>
+    <revision>
+      <id>582297575</id>
+      <parentid>548243219</parentid>
+      <timestamp>2013-11-19T00:55:35Z</timestamp>
+      <contributor>
+        <username>Hugo999</username>
+        <id>3006008</id>
+      </contributor>
+      <comment>added [[Category:Protected areas of North America]] using [[WP:HC|HotCat]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve">{{Commons category|Protected areas of Canada}}
+[[Category:Protected areas by country|Canada]]
+[[Category:Conservation in Canada]]
+[[Category:Protected areas of North America|Can]]</text>
+      <sha1>0rlhkan7qixf1rkifqd1aoguaxly4y6</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Suzzana Owiyo</title>
+    <ns>0</ns>
+    <id>7697617</id>
+    <redirect title="Suzanna Owíyo" />
+    <revision>
+      <id>412640594</id>
+      <parentid>346277933</parentid>
+      <timestamp>2011-02-08T01:16:35Z</timestamp>
+      <contributor>
+        <username>EmausBot</username>
+        <id>11292982</id>
+      </contributor>
+      <minor />
+      <comment>Bot: Fixing double redirect to [[Suzanna Owíyo]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve">#REDIRECT [[Suzanna Owíyo]]
+{{R from title without diacritics}}</text>
+      <sha1>k5bpcon4svx4fo1qw151okuw0boh77f</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Ricky Minard</title>
+    <ns>0</ns>
+    <id>7697626</id>
+    <revision>
+      <id>898675217</id>
+      <parentid>894018749</parentid>
+      <timestamp>2019-05-25T06:21:08Z</timestamp>
+      <contributor>
+        <username>SimonLagann</username>
+        <id>31130001</id>
+      </contributor>
+      <comment>/* External links */</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve">{{Infobox basketball biography
+| image        = 
+| caption      = 
+| name         = Ricky Minard 
+| position     = [[Shooting guard]] / [[Small forward]]
+| height_ft    = 6 
+| height_in    = 5
+| weight_lbs   = 220
+| league       = 
+| team         = 
+| number       = 
+| nationality  = American
+| birth_date   = {{birth date and age|1982|9|11}}
+| birth_place  = [[Mansfield, Ohio]]
+| high_school  = [[Mansfield Senior High School|Mansfield]] (Mansfield, Ohio)
+| college      = [[Morehead State Eagles men's basketball|Morehead State]] (2000–2004)
+| draft_year   = 2004
+| draft_round  = 2
+| draft_pick   = 48
+| draft_team   = [[Sacramento Kings]]
+| career_start = 2004
+| career_end   = 2017
+| years1       = 2004–2005
+| team1        = [[Columbus Riverdragons]]
+| years2       = 2005
+| team2        = [[Pallacanestro Biella|Lauretana Biella]]
+| years3       = 2005–2007
+| team3        = [[Pallacanestro Reggiana|Bipop Carire Reggio Emilia]]
+| years4       = 2007–2009
+| team4        = [[Sutor Basket Montegranaro|Premiata Montegranaro]]
+| years5       = 2009–2010
+| team5        = [[Pallacanestro Virtus Roma|Lottomatica Roma]]
+| years6       = 2010
+| team6        = [[BC Khimki|Khimki Moscow Region]]
+| years7       = 2010–2011
+| team7        = [[UNICS Kazan]]
+| years8       = 2011–2012
+| team8        = [[BC Azovmash|Azovmash Mariupol]]
+| years9       = 2012
+| team9        = [[A.S. Junior Pallacanestro Casale|Novipiu Casale]]
+| years10      = 2012–2013
+| team10       = [[Virtus Pallacanestro Bologna|Virtus Bologna]]
+| years11      = 2013
+| team11       = [[Beşiktaş men's basketball team|Beşiktaş]]
+| years12      = 2013–2014
+| team12       = [[BC Budivelnyk|Budivelnyk Kyiv]]
+| years13      = 2015
+| team13       = [[SPO Rouen Basket]]
+| years14      = 2015
+| team14       = [[BG Göttingen]]
+| years15      = 2015–2017
+| team15       = [[Tampereen Pyrintö (basketball)|Tampereen Pyrintö]]
+| highlights    = 
+* [[Eurocup Basketball|Eurocup]] champion (2011)
+* [[Ukrainian Basketball League|Ukrainian League]] champion (2014)
+* [[Ukrainian Basketball Cup|Ukrainian Cup]] champion (2014)
+}}
+
+'''Ricky Donell Minard Jr.''' (born September 11, 1982) is an American professional [[basketball]] player who plays for [[Tampereen Pyrintö (basketball)|Tampereen Pyrintö]] of the [[Korisliiga]]. He is Morehead State's career scoring leader.&lt;ref name=espn1/&gt;
+
+==Professional career==
+He was selected by the [[Sacramento Kings]] in the 2nd round (48th overall) of the [[2004 NBA Draft]]. A 6'4&quot; guard from [[Morehead State University]], Minard was signed by the Kings in July 2004, but they waived him in November the same year, and so far he has never appeared in an [[NBA]] game.&lt;ref name=espn1&gt;[http://sports.espn.go.com/nba/news/story?id=1836037 Martin signs for three years, $2.34 million - NBA - ESPN]&lt;/ref&gt;
+
+Minard started his professional career with [[Columbus Riverdragons]] of the [[NBDL]].&lt;ref&gt;[http://www.nba.com/dleague/nbdl/draft_041105.html Riverdragons Select Ricky Minard With the No. 1 Overall Pick]&lt;/ref&gt; In January 2005, he left the United States and moved to Italy where he spent next five years playing for [[Pallacanestro Biella|Lauretana Biella]], [[Pallacanestro Reggiana|Bipop Carire Reggio Emilia]], [[Sutor Basket Montegranaro|Premiata Montegranaro]] and [[Pallacanestro Virtus Roma|Lottomatica Roma]].&lt;ref&gt;[http://web.legabasket.it/player/?id=MIN-RIC-82 Italian League profile]&lt;/ref&gt;
+
+On March 12, 2010, he signed with [[BC Khimki|Khimki Moscow Region]] of Russia for the rest of the season.&lt;ref&gt;[http://www.sportando.com/en/europe/russia/80344/khimki-announces-minard.html Khimki announces Minard]&lt;/ref&gt; For the 2010–11 season he stayed in Russia but moved to [[UNICS Kazan]].&lt;ref&gt;[http://www.eurocupbasketball.com/eurocup/news/i/77352/unics-kazan-inks-scorer-minard Unics Kazan inks scorer Minard]&lt;/ref&gt; On July 20, 2011, he signed a one-year deal with [[Azovmash Mariupol]] of Ukraine.&lt;ref&gt;[http://www.sportando.com/en/europe/ukraine/87516/azovmash-mariupol-lands-ricky-minard.html Azovmash Mariupol lands Ricky Minard]&lt;/ref&gt; On February 17, 2012, he was released by Azovmash.&lt;ref&gt;[http://www.sportando.com/en/europe/ukraine/90270/azovmash-mariupol-released-ricky-minard.html Azovmash Mariupol released Ricky Minard]&lt;/ref&gt; The same day he signed with [[A.S. Junior Pallacanestro Casale|Novipiu Casale]] of Italy for the rest of the season.&lt;ref&gt;[http://www.sportando.com/en/italy/serie-a/90279/novipiu-casale-officially-announced-ricky-minard.html Novipiu Casale officially announced Ricky Minard]&lt;/ref&gt;
+
+On August 28, 2012, he signed with [[Virtus Pallacanestro Bologna|Virtus Bologna]] of Italy.&lt;ref&gt;[http://www.sportando.com/en/italy/serie-a/94891/virtus-bologna-officially-signs-ricky-minard.html Virtus Bologna officially signs Ricky Minard]&lt;/ref&gt; On February 21, 2012, he left Bologna and signed with [[Beşiktaş men's basketball team|Beşiktaş]] of Turkey for the rest of the season.&lt;ref&gt;[http://www.sportando.com/en/italy/serie-a/99414/ricky-minard-virtus-bologna-part-ways.html Ricky Minard, Virtus Bologna part ways]&lt;/ref&gt;&lt;ref&gt;[http://www.sportando.com/en/europe/turkey/99416/besiktas-lands-ricky-minard.html Besiktas lands Ricky Minard]&lt;/ref&gt; On July 25, 2013, he signed with [[BC Budivelnyk|Budivelnyk Kyiv]] of Ukraine for the 2013–14 season.&lt;ref&gt;{{cite web|title=Budivelnyk signs Ricky Minard|url=http://www.sportando.net/eng/europe/ukraine/60156/budivelnyk-signs-ricky-minard.html|publisher=Sportando.net|accessdate=July 25, 2013}}&lt;/ref&gt;
+
+On January 18, 2015, he signed with French team [[SPO Rouen Basket]].&lt;ref&gt;[http://www.sportando.com/en/europe/france/149125/rouen-lands-ricky-minard.html Rouen lands Ricky Minard]&lt;/ref&gt; On March 7, 2015, he parted ways with Rouen after appearing in five league games.&lt;ref&gt;[http://www.eurobasket.com/France/news/397227/Ricky-Minard-left-Rouen Ricky Minard left Rouen]&lt;/ref&gt;
+
+On August 20, 2015, he signed with [[BG Göttingen]] of Germany.&lt;ref&gt;[http://www.sportando.com/en/europe/germany/173349/bg-goettingen-lands-ricky-minard.html BG Goettingen lands Ricky Minard]&lt;/ref&gt; On October 23, 2015, he parted ways due to injury with Göttingen after appearing in two games.&lt;ref&gt;[http://www.sportando.com/en/europe/germany/179583/bg-goettingen-ricky-minard-part-ways.html BG Goettingen, Ricky Minard part ways]&lt;/ref&gt; On November 13, 2015, he signed with [[Tampereen Pyrintö (basketball)|Tampereen Pyrintö]] of the Finnish [[Korisliiga]].&lt;ref&gt;[http://www.sportando.com/en/europe/finland/181864/ricky-minard-inks-with-tampere-pyrinto.html Ricky Minard inks with Tampere Pyrinto]&lt;/ref&gt; Pyrintö advanced to Korisliiga Finals, where they lost to [[Kouvot]]. Following their mutual interest already from the previous season the parties re-signed on August 15, 2016.&lt;ref&gt;[http://pyrinto.fi/ricky-minard-pukee-punaista-paalle/ Ricky Minard pukee punaista päälle] Tampereen Pyrintö Basketball {{fi}}&lt;/ref&gt;
+
+==Notes==
+{{Reflist}}
+
+==External links==
+* [http://aol.nba.com/draft2004/profiles/RickyMinard.html NBA.com Draft bio]
+* [http://www.collegehoopsnet.com/Draft/Prospects/RMinard.htm Interview]
+* [http://www.fiba.com/pages/eng/fc/gamecent/p/pid/6026023/playerview.html FIBA.com profile]
+* [http://www.basslinespin.com/MinardRicky.htm Who is Ricky Minard?]
+* [http://basketball.eurobasket.com/player/Ricky_Minard/46336 Eurobasket.com profile]
+
+{{Navboxes|list1=
+{{NBA Development League NumberOne Picks}}
+{{2004 NBA Draft}}
+{{Ohio Valley Conference Men's Basketball Player of the Year navbox}}
+{{BC UNICS 2010–11 Eurocup champions}}
+}}
+
+{{DEFAULTSORT:Minard, Ricky}}
+[[Category:1982 births]]
+[[Category:Living people]]
+[[Category:A.S. Junior Pallacanestro Casale players]]
+[[Category:American expatriate basketball people in Finland]]
+[[Category:American expatriate basketball people in France]]
+[[Category:American expatriate basketball people in Germany]]
+[[Category:American expatriate basketball people in Italy]]
+[[Category:American expatriate basketball people in Russia]]
+[[Category:American expatriate basketball people in Turkey]]
+[[Category:American expatriate basketball people in Ukraine]]
+[[Category:American men's basketball players]]
+[[Category:Basketball players from Ohio]]
+[[Category:BC Azovmash players]]
+[[Category:BC Budivelnyk players]]
+[[Category:BC Khimki players]]
+[[Category:BC UNICS players]]
+[[Category:BG Göttingen players]]
+[[Category:Beşiktaş men's basketball players]]
+[[Category:Columbus Riverdragons players]]
+[[Category:Morehead State Eagles men's basketball players]]
+[[Category:Pallacanestro Biella players]]
+[[Category:Pallacanestro Reggiana players]]
+[[Category:Pallacanestro Virtus Roma players]]
+[[Category:Sacramento Kings draft picks]]
+[[Category:Shooting guards]]
+[[Category:Small forwards]]
+[[Category:Sportspeople from Mansfield, Ohio]]
+[[Category:Sutor Basket Montegranaro players]]
+[[Category:Tampereen Pyrintö players]]
+[[Category:Virtus Pallacanestro Bologna players]]</text>
+      <sha1>naw3kccobvy14uw5nisjp9d0h9ayur8</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Wikipedia:Articles for deletion/Katisha</title>
+    <ns>4</ns>
+    <id>7697627</id>
+    <revision>
+      <id>86474849</id>
+      <parentid>86158900</parentid>
+      <timestamp>2006-11-08T11:59:49Z</timestamp>
+      <contributor>
+        <username>Jitse Niesen</username>
+        <id>14515</id>
+      </contributor>
+      <comment>close discussion, result is redirect</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve">&lt;div class=&quot;boilerplate metadata vfd&quot; style=&quot;background-color: #F3F9FF; margin: 2em 0 0 0; padding: 0 10px 0 10px; border: 1px solid #AAAAAA;&quot;&gt;
+:''The following discussion is an archived debate of the proposed deletion of the article below. &lt;span style=&quot;color:red&quot;&gt;'''Please do not modify it.'''&lt;/span&gt;  Subsequent comments should be made on the appropriate discussion page (such as the article's talk page or in a [[Wikipedia:Deletion review|deletion review]]).  No further edits should be made to this page.  ''
+&lt;!--Template:Afd top
+
+Note:  If you are seeing this page as a result of an attempt to re-nominate an article for deletion, you must manually edit the AfD nomination links in order to create a new discussion page using the name format of [[Wikipedia:Articles for deletion/PAGENAME (2nd nomination)]].  When you create the new discussion page, please provide a link to this old discussion in your nomination. --&gt;
+
+The result was '''redirect''' to [[The Mikado]]. -- [[User:Jitse Niesen|Jitse Niesen]] ([[User talk:Jitse Niesen|talk]]) 11:59, 8 November 2006 (UTC)
+===[[Katisha]]===
+Contains no information not in [[The Mikado]] article, the point of the spin-off unclear, as the character only appears in one opera, and it's unclear how this could expand further. In normal circumstances I'd say merge or make it a redirect, but, as I said, everything IS covered in [[The Mikado]], and I can't imagine someone searching for &quot;Katisha&quot;.  [[User:Adam Cuerden|Adam Cuerden]] &lt;sup&gt;[[User_talk:Adam Cuerden|talk]]&lt;/sup&gt; 19:36, 30 October 2006 (UTC)
+
+*'''Delete''' article per nomination.  Anything notable about this character should appear in the plot summary of ''[[The Mikado]]''.  There is no reason to have a separate article for this character.  -- [[User:Ssilvers|Ssilvers]] 19:59, 30 October 2006 (UTC)
+*'''Redirect''' it to [[The Mikado]] -- merge isn't needed since the info's there, but the redirect could be useful -- somebody could search for it. -- [[User:ArglebargleIV|ArglebargleIV]] 22:15, 30 October 2006 (UTC)
+*&lt;small&gt;'''Note''':  This debate has been included in the [[Wikipedia:WikiProject Deletion sorting/Japan|list of Japan-related deletions]].  &lt;/small&gt; &lt;small&gt;-- [[User:Qiszxo|Qiszxo]] 08:11, 31 October 2006 (UTC)&lt;/small&gt;
+*'''Redirect''' to [[The Mikado]]. It seems the creator of the article has abandoned it, too. [[User:KrakatoaKatie|&lt;font color=&quot;salmon&quot;&gt;'''Krakatoa'''&lt;/font&gt;]][[User talk:KrakatoaKatie|&lt;font color=&quot;teal&quot;&gt;Katie&lt;/font&gt;]] 23:45, 6 November 2006 (UTC)
+:''The above discussion is preserved as an archive of the debate.  &lt;span style=&quot;color:red&quot;&gt;'''Please do not modify it.'''&lt;/span&gt; Subsequent comments should be made on the appropriate discussion page (such as the article's talk page or in a [[Wikipedia:Deletion review|deletion review]]). No further edits should be made to this page. &lt;!--Template:Afd bottom--&gt;&lt;/div&gt;</text>
+      <sha1>cavus94iuuxvv956etffhltzbvh8mlp</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Penny-and-dime scam</title>
+    <ns>0</ns>
+    <id>7697629</id>
+    <redirect title="Coin rolling scams" />
+    <revision>
+      <id>242688347</id>
+      <parentid>242687775</parentid>
+      <timestamp>2008-10-03T06:35:18Z</timestamp>
+      <contributor>
+        <username>Apl2007</username>
+        <id>5765657</id>
+      </contributor>
+      <comment>[[WP:AES|←]]Redirected page to [[Coin rolling scams]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve">#REDIRECT [[Coin rolling scams]]</text>
+      <sha1>dmen6374fx2a5wu56mx392t4qbs59nh</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Mr. &amp; Mrs.</title>
+    <ns>0</ns>
+    <id>7697632</id>
+    <redirect title="Mr &amp; Mrs" />
+    <revision>
+      <id>630710503</id>
+      <parentid>84677215</parentid>
+      <timestamp>2014-10-22T22:01:51Z</timestamp>
+      <contributor>
+        <username>Invadibot</username>
+        <id>15934865</id>
+      </contributor>
+      <minor />
+      <comment>Bot: Fixing double redirect to [[Mr &amp; Mrs]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve">#REDIRECT [[Mr &amp; Mrs]]</text>
+      <sha1>q4n3iot4g7jvcupm6hh6slqrrekklnw</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Category:Amblyornis</title>
+    <ns>14</ns>
+    <id>7697635</id>
+    <revision>
+      <id>546949103</id>
+      <parentid>382040770</parentid>
+      <timestamp>2013-03-25T18:48:17Z</timestamp>
+      <contributor>
+        <username>Addbot</username>
+        <id>6569922</id>
+      </contributor>
+      <minor />
+      <comment>[[User:Addbot|Bot:]] Migrating 1 interwiki links, now provided by [[Wikipedia:Wikidata|Wikidata]] on [[d:q8242828]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve">'''Amblyornis''' is a genus of the [[Ptilonorhynchidae]] family.
+{{Commons cat|Amblyornis}}
+
+[[Category:Ptilonorhynchidae]]</text>
+      <sha1>4gfuo1jt033p4xjwswp7kzurilkt0gj</sha1>
+    </revision>
+  </page>
+</mediawiki>

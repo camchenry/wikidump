@@ -88,19 +88,57 @@ impl Parser {
         }
     }
 
-    // TODO: document
+    /// Sets whether the parser should process wiki text or leave it as-is. For
+    /// best results, it is recommended you use a wiki config which matches the
+    /// website you are parsing from. It may still work otherwise, but the
+    /// results might be something unexpected.
+    ///
+    /// Wiki text parsing is enabled by default.
+    ///
+    /// See [use_config](struct.Parser.html#method.use_config) and [config](config/index.html).
+    ///
+    /// # Example
+    /// ```rust
+    /// use wikidump::{Parser, config};
+    ///
+    /// let parser = Parser::new()
+    ///     .use_config(config::wikipedia::english())
+    ///     .process_text(false); // Disable wiki text parsing
+    /// ```
     pub fn process_text(mut self, value: bool) -> Self {
         self.process_wiki_text = value;
         self
     }
 
-    // TODO: document
+    /// Sets the wiki text parser configuration options. For best results of
+    /// processing wiki text, it is recommended to use the type of configuration
+    /// that matches the website and language you are processing.
+    ///
+    /// See [config](config/index.html).
+    ///
+    /// # Example
+    /// ```rust
+    /// use wikidump::{Parser, config};
+    ///
+    /// let parser = Parser::new()
+    ///     .use_config(config::wikipedia::english());
+    /// ```
     pub fn use_config(mut self, config_source: ConfigurationSource) -> Self {
         self.wiki_config = Configuration::new(&config_source);
         self
     }
 
-    // TODO: document
+    /// Returns all of the parsed data contained in a particular wiki dump file.
+    /// This includes the name of the website, a list of pages, their
+    /// respective contents, and other properties.
+    ///
+    /// # Example
+    /// ```rust
+    /// use wikidump::Parser;
+    ///
+    /// let parser = Parser::new();
+    /// let site = parser.parse_file("tests/enwiki-articles-partial.xml");
+    /// ```
     pub fn parse_file<P>(&self, dump: P) -> Result<Site, Exception>
     where
         P: AsRef<Path>,
@@ -240,6 +278,11 @@ fn get_text_from_nodes(nodes: Vec<Node>) -> String {
                 // Currently not allowed because it's a bit difficult to figure
                 // out what is normal text and what isn't.
             }
+            Node::OrderedList { items, .. } => {
+                for item in items {
+                    node_text.push_str(get_text_from_nodes(item.nodes).as_str());
+                }
+            }
             Node::UnorderedList { items, .. } => {
                 for item in items {
                     node_text.push_str(get_text_from_nodes(item.nodes).as_str());
@@ -250,16 +293,24 @@ fn get_text_from_nodes(nodes: Vec<Node>) -> String {
                     node_text.push_str(get_text_from_nodes(item.nodes).as_str());
                 }
             }
+            Node::Preformatted { nodes, .. } => {
+                node_text.push_str(get_text_from_nodes(nodes).as_str())
+            }
             Node::Template { .. }
             | Node::Bold { .. }
+            | Node::BoldItalic { .. }
+            | Node::HorizontalDivider { .. }
+            | Node::MagicWord { .. }
             | Node::ParagraphBreak { .. }
             | Node::Italic { .. }
+            | Node::Redirect { .. }
+            | Node::Comment { .. }
             | Node::Tag { .. }
             | Node::StartTag { .. }
             | Node::EndTag { .. }
+            | Node::Parameter { .. }
             | Node::Category { .. }
             | Node::Table { .. } => {}
-            _ => panic!("Unhandled node type: {:?}", node),
         }
     }
 
