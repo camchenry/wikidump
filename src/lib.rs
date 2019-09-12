@@ -200,26 +200,20 @@ impl DumpParser {
     }
 }
 
-pub fn get_text_from_nodes(nodes: Vec<Node>) -> String {
+fn get_text_from_nodes(nodes: Vec<Node>) -> String {
     let mut node_text = "".to_string();
 
     for node in nodes {
         match node {
-            Node::Text { value, .. } => {
-                node_text.push_str(value);
-            }
+            Node::Text { value, .. } => node_text.push_str(value),
             Node::CharacterEntity { character, .. } => {
-                node_text.push_str(character.to_string().as_str());
+                node_text.push_str(character.to_string().as_str())
             }
-            Node::Link { text, .. } => {
-                node_text.push_str(get_text_from_nodes(text).as_str());
-            }
+            Node::Link { text, .. } => node_text.push_str(get_text_from_nodes(text).as_str()),
             Node::ExternalLink { nodes, .. } => {
-                node_text.push_str(get_text_from_nodes(nodes).as_str());
+                node_text.push_str(get_text_from_nodes(nodes).as_str())
             }
-            Node::Heading { nodes, .. } => {
-                node_text.push_str(get_text_from_nodes(nodes).as_str());
-            }
+            Node::Heading { nodes, .. } => node_text.push_str(get_text_from_nodes(nodes).as_str()),
             Node::Image { .. } => {
                 // @TODO @Completeness: Allow image text.
                 // Currently not allowed because it's a bit difficult to figure
