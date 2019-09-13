@@ -189,7 +189,6 @@ impl Parser {
         let mut state = ParserState::None;
         let mut buf = Vec::new();
         let mut text_buf = Vec::new();
-        let mut hierarchy: Vec<String> = Vec::new();
         let mut current_page = Page::new();
         let mut current_page_revision = PageRevision::new();
 
@@ -197,8 +196,6 @@ impl Parser {
             match reader.read_event(&mut buf) {
                 Ok(Event::Start(ref e)) => {
                     let element_name = e.name();
-                    let new_name = std::str::from_utf8(element_name).unwrap().to_string();
-                    hierarchy.push(new_name);
 
                     // Check if we should change between states
                     match element_name {
@@ -214,54 +211,43 @@ impl Parser {
                                 site.name = reader
                                     .read_text(element_name, &mut text_buf)
                                     .expect("Could not get site name");
-                                hierarchy.pop(); // Pop hierarchy because we processed this node in-place.
                             }
                             b"base" => {
                                 site.url = reader
                                     .read_text(element_name, &mut text_buf)
                                     .expect("Could not get base wiki URL");
-                                hierarchy.pop(); // Pop hierarchy because we processed this node in-place.
                             }
                             _ => {}
                         };
                     } else if state == ParserState::Page {
                         // Page information: title, text, authors, etc.
                         // IMPORTANT: These tag names are ordered from deepest to shallowest.
-                        if hierarchy.contains(&"revision".to_string()) {
-                            match element_name {
-                                b"text" => {
-                                    // @TODO @Completeness: Provide an option here to NOT
-                                    // parse the wiki text, just in case.
-                                    let text = reader
-                                        .read_text(element_name, &mut text_buf)
-                                        .expect("Could not get revision text");
+                        match element_name {
+                            b"text" => {
+                                // @TODO @Completeness: Provide an option here to NOT
+                                // parse the wiki text, just in case.
+                                let text = reader
+                                    .read_text(element_name, &mut text_buf)
+                                    .expect("Could not get revision text");
 
-                                    if self.process_wiki_text {
-                                        // @TODO: Allow swapping the configuration
-                                        let parsed_result = self.wiki_config.parse(text.as_str());
+                                if self.process_wiki_text {
+                                    // @TODO: Allow swapping the configuration
+                                    let parsed_result = self.wiki_config.parse(text.as_str());
 
-                                        let text = get_text_from_nodes(parsed_result.nodes);
+                                    let text = get_text_from_nodes(parsed_result.nodes);
 
-                                        current_page_revision.text = text;
-                                    } else {
-                                        current_page_revision.text = text;
-                                    }
-
-                                    hierarchy.pop(); // Pop hierarchy because we processed this node in-place.
+                                    current_page_revision.text = text;
+                                } else {
+                                    current_page_revision.text = text;
                                 }
-                                _ => {}
-                            };
-                        } else if hierarchy.contains(&"page".to_string()) {
-                            match element_name {
-                                b"title" => {
-                                    current_page.title = reader
-                                        .read_text(element_name, &mut text_buf)
-                                        .expect("Could not get page title");
-                                    hierarchy.pop(); // Pop hierarchy because we processed this node in-place.
-                                }
-                                _ => {}
-                            };
-                        }
+                            }
+                            b"title" => {
+                                current_page.title = reader
+                                    .read_text(element_name, &mut text_buf)
+                                    .expect("Could not get page title");
+                            }
+                            _ => {}
+                        };
                     }
                 }
                 Ok(Event::Text(e)) => {}
@@ -277,8 +263,6 @@ impl Parser {
                         }
                         _ => {}
                     };
-
-                    hierarchy.pop();
                 }
                 Ok(Event::Eof) => break, // exits the loop when reaching end of file
                 Err(e) => panic!("Error at position {}: {:?}", reader.buffer_position(), e),
