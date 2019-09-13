@@ -1,6 +1,22 @@
+//! Wiki text parsing configurations for Mediawiki sites and languages.c
+//!
+//! These are the currently supported Mediawiki websites and languages:
+//! * Wikipedia
+//!     * English
+//! * Simple English Wikipedia
+//!
+//! ## Example
+//! ```rust
+//! use wikidump::{config, Parser};
+//! let parser = Parser::new()
+//!     .use_config(config::wikipedia::english());
+//!```
+
+/// Configurations for [Wikipedia, the free encyclopedia](https://www.wikipedia.org/).
 pub mod wikipedia {
     use parse_wiki_text::ConfigurationSource;
 
+    /// Configuration for the English Wikipedia.
     pub fn english<'c>() -> ConfigurationSource<'c> {
         ConfigurationSource {
             category_namespaces: &["category"],
@@ -88,6 +104,8 @@ pub mod wikipedia {
         }
     }
 
+    /// Configuration for Simple English Wikipedia. At the moment, this is
+    /// exactly the same as the English Wikipedia configuration.
     pub fn simple_english<'c>() -> ConfigurationSource<'c> {
         english()
     }
