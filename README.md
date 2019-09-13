@@ -7,7 +7,8 @@ allow you to extract whatever data you desire.
 
 ## Example
 ```rust
-let parser = Parser::new().use_config(config::wikipedia::english());
+let parser = Parser::new()
+    .use_config(config::wikipedia::english());
 
 let site = parser
     .parse_file("tests/enwiki-articles-partial.xml")
@@ -19,6 +20,9 @@ assert!(!site.pages.is_empty());
 
 for page in site.pages {
     println!("Title: {}", page.title);
-}
 
+    for revision in page.revisions {
+        println!("\t{}", revision.text);
+    }
+}
 ```
