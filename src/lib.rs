@@ -110,13 +110,6 @@ pub struct Parser {
     wiki_config: Configuration,
 }
 
-#[derive(Debug, PartialEq)]
-enum ParserState {
-    None,
-    SiteInfo,
-    Page,
-}
-
 impl Parser {
     /// Construct a new parser with the default settings.
     pub fn new<'c>() -> Parser {
@@ -186,7 +179,6 @@ impl Parser {
 
         // TODO
         let mut site = Site::new();
-        let mut state = ParserState::None;
         let mut buf = Vec::new();
         let mut text_buf = Vec::new();
         let mut current_page = Page::new();
@@ -197,60 +189,43 @@ impl Parser {
                 Ok(Event::Start(ref e)) => {
                     let element_name = e.name();
 
-                    // Check if we should change between states
                     match element_name {
-                        b"siteinfo" => state = ParserState::SiteInfo,
-                        b"page" => state = ParserState::Page,
+                        b"sitename" => {
+                            site.name = reader
+                                .read_text(element_name, &mut text_buf)
+                                .expect("Could not get site name");
+                        }
+                        b"base" => {
+                            site.url = reader
+                                .read_text(element_name, &mut text_buf)
+                                .expect("Could not get base wiki URL");
+                        }
+                        b"text" => {
+                            // @TODO @Completeness: Provide an option here to NOT
+                            // parse the wiki text, just in case.
+                            let text = reader
+                                .read_text(element_name, &mut text_buf)
+                                .expect("Could not get revision text");
+
+                            if self.process_wiki_text {
+                                // @TODO: Allow swapping the configuration
+                                let parsed_result = self.wiki_config.parse(text.as_str());
+
+                                let text = get_text_from_nodes(parsed_result.nodes);
+
+                                current_page_revision.text = text;
+                            } else {
+                                current_page_revision.text = text;
+                            }
+                        }
+                        b"title" => {
+                            current_page.title = reader
+                                .read_text(element_name, &mut text_buf)
+                                .expect("Could not get page title");
+                        }
                         _ => {}
                     };
-
-                    if state == ParserState::SiteInfo {
-                        // Site information: URL, name, etc.
-                        match element_name {
-                            b"sitename" => {
-                                site.name = reader
-                                    .read_text(element_name, &mut text_buf)
-                                    .expect("Could not get site name");
-                            }
-                            b"base" => {
-                                site.url = reader
-                                    .read_text(element_name, &mut text_buf)
-                                    .expect("Could not get base wiki URL");
-                            }
-                            _ => {}
-                        };
-                    } else if state == ParserState::Page {
-                        // Page information: title, text, authors, etc.
-                        // IMPORTANT: These tag names are ordered from deepest to shallowest.
-                        match element_name {
-                            b"text" => {
-                                // @TODO @Completeness: Provide an option here to NOT
-                                // parse the wiki text, just in case.
-                                let text = reader
-                                    .read_text(element_name, &mut text_buf)
-                                    .expect("Could not get revision text");
-
-                                if self.process_wiki_text {
-                                    // @TODO: Allow swapping the configuration
-                                    let parsed_result = self.wiki_config.parse(text.as_str());
-
-                                    let text = get_text_from_nodes(parsed_result.nodes);
-
-                                    current_page_revision.text = text;
-                                } else {
-                                    current_page_revision.text = text;
-                                }
-                            }
-                            b"title" => {
-                                current_page.title = reader
-                                    .read_text(element_name, &mut text_buf)
-                                    .expect("Could not get page title");
-                            }
-                            _ => {}
-                        };
-                    }
                 }
-                Ok(Event::Text(e)) => {}
                 Ok(Event::End(ref e)) => {
                     match e.name() {
                         b"page" => {
