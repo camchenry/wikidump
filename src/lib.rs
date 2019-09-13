@@ -200,19 +200,9 @@ impl Parser {
                                 .expect("Could not get base wiki URL");
                         }
                         b"text" => {
-                            let text = reader
+                            current_page_revision.text = reader
                                 .read_text(element_name, &mut text_buf)
                                 .expect("Could not get revision text");
-
-                            if self.process_wiki_text {
-                                let parsed_result = self.wiki_config.parse(text.as_str());
-
-                                let text = get_text_from_nodes(parsed_result.nodes);
-
-                                current_page_revision.text = text;
-                            } else {
-                                current_page_revision.text = text;
-                            }
                         }
                         b"title" => {
                             current_page.title = reader
@@ -243,6 +233,16 @@ impl Parser {
             // if we don't keep a borrow elsewhere, we can clear the buffer to keep memory usage low
             buf.clear();
             text_buf.clear();
+        }
+
+        if self.process_wiki_text {
+            site.pages.iter_mut().for_each(|p| {
+                p.revisions.iter_mut().for_each(|r| {
+                    let parsed_output = self.wiki_config.parse(r.text.as_str());
+
+                    r.text = get_text_from_nodes(parsed_output.nodes);
+                })
+            });
         }
 
         Ok(site)
