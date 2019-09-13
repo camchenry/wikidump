@@ -2,8 +2,9 @@
 
 # wikidump
 
-This crate can process Mediawiki dump (backup) files in XML format and
-allow you to extract whatever data you desire.
+This crate processes Mediawiki XML dump files and turns them into easily
+consumed pieces of data for language analysis, natural langauge processing,
+and other applications.
 
 ## Example
 ```rust

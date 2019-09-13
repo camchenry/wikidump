@@ -46,6 +46,13 @@ impl Page {
             revisions: vec![],
         }
     }
+
+    /// Reset internal data without allocating.
+    fn reset(&mut self) -> &Self {
+        self.title.clear();
+        self.revisions.clear();
+        self
+    }
 }
 
 /// Represents a specific revision of a page. This means a certain version of
@@ -64,6 +71,12 @@ impl PageRevision {
         PageRevision {
             text: "".to_string(),
         }
+    }
+
+    /// Reset internal data without allocating.
+    fn reset(&mut self) -> &mut Self {
+        self.text.clear();
+        self
     }
 }
 
@@ -256,13 +269,11 @@ impl Parser {
                     match e.name() {
                         b"page" => {
                             site.pages.push(current_page.clone());
-                            // TODO(performance): Do not allocate here, instead do a reset.
-                            current_page = Page::new();
+                            current_page.reset();
                         }
                         b"revision" => {
                             current_page.revisions.push(current_page_revision.clone());
-                            // TODO(performance): Do not allocate here, instead do a reset.
-                            current_page_revision = PageRevision::new();
+                            current_page_revision.reset();
                         }
                         _ => {}
                     };
