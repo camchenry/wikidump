@@ -48,6 +48,7 @@ fn simplewiki_benchmark(c: &mut Criterion) {
         .metadata()
         .unwrap()
         .len();
+    group.measurement_time(Duration::new(10, 0));
     group.throughput(Throughput::Bytes(file_length));
     group.bench_function("simplewiki partial w/ parsing", |b| {
         b.iter(|| parse_wikipedia(black_box("tests/simplewiki.xml"), black_box(true)))
