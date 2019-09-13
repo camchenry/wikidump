@@ -177,7 +177,6 @@ impl Parser {
         let mut reader = Reader::from_file(dump).expect("Could not create XML reader from file");
         reader.trim_text(true);
 
-        // TODO
         let mut site = Site::new();
         let mut buf = Vec::new();
         let mut text_buf = Vec::new();
@@ -201,14 +200,11 @@ impl Parser {
                                 .expect("Could not get base wiki URL");
                         }
                         b"text" => {
-                            // @TODO @Completeness: Provide an option here to NOT
-                            // parse the wiki text, just in case.
                             let text = reader
                                 .read_text(element_name, &mut text_buf)
                                 .expect("Could not get revision text");
 
                             if self.process_wiki_text {
-                                // @TODO: Allow swapping the configuration
                                 let parsed_result = self.wiki_config.parse(text.as_str());
 
                                 let text = get_text_from_nodes(parsed_result.nodes);
