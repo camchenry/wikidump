@@ -10,7 +10,7 @@ fn parse_wikipedia(file: &'static str, parse_wiki_text: bool) -> Site {
     parser.parse_file(file).expect("Failed to parse")
 }
 
-fn criterion_benchmark(c: &mut Criterion) {
+fn wikipedia_benchmark(c: &mut Criterion) {
     let mut group = c.benchmark_group("Wikipedia");
 
     let file_length = File::open("tests/enwiki-articles-partial.xml")
@@ -40,5 +40,24 @@ fn criterion_benchmark(c: &mut Criterion) {
     group.finish();
 }
 
-criterion_group!(benches, criterion_benchmark);
+fn simplewiki_benchmark(c: &mut Criterion) {
+    let mut group = c.benchmark_group("Simple Wikipedia");
+
+    let file_length = File::open("tests/simplewiki.xml")
+        .unwrap()
+        .metadata()
+        .unwrap()
+        .len();
+    group.throughput(Throughput::Bytes(file_length));
+    group.bench_function("simplewiki partial w/ parsing", |b| {
+        b.iter(|| parse_wikipedia(black_box("tests/simplewiki.xml"), black_box(true)))
+    });
+    group.bench_function("simplewiki partial w/ no parsing", |b| {
+        b.iter(|| parse_wikipedia(black_box("tests/simplewiki.xml"), black_box(false)))
+    });
+
+    group.finish();
+}
+
+criterion_group!(benches, wikipedia_benchmark, simplewiki_benchmark);
 criterion_main!(benches);
