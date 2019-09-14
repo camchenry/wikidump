@@ -285,7 +285,7 @@ impl Parser {
 // TODO: document
 fn get_text_from_nodes(nodes: &Vec<Node>) -> String {
     // 32 is just a guess here, not really well benchmarked or anything
-    let mut node_text = String::with_capacity(32 * nodes.len());
+    let mut node_text = String::with_capacity(64 + 64 * nodes.len());
 
     nodes.iter().for_each(|node| {
         match node {
@@ -303,20 +303,15 @@ fn get_text_from_nodes(nodes: &Vec<Node>) -> String {
                 // Currently not allowed because it's a bit difficult to figure
                 // out what is normal text and what isn't.
             }
-            Node::OrderedList { items, .. } => {
-                for item in items {
-                    node_text.push_str(get_text_from_nodes(&item.nodes).as_str());
-                }
-            }
-            Node::UnorderedList { items, .. } => {
-                for item in items {
-                    node_text.push_str(get_text_from_nodes(&item.nodes).as_str());
-                }
+            Node::OrderedList { items, .. } | Node::UnorderedList { items, .. } => {
+                items.iter().for_each(|i| {
+                    node_text.push_str(get_text_from_nodes(&i.nodes).as_str());
+                });
             }
             Node::DefinitionList { items, .. } => {
-                for item in items {
-                    node_text.push_str(get_text_from_nodes(&item.nodes).as_str());
-                }
+                items.iter().for_each(|i| {
+                    node_text.push_str(get_text_from_nodes(&i.nodes).as_str());
+                });
             }
             Node::Preformatted { nodes, .. } => {
                 node_text.push_str(get_text_from_nodes(nodes).as_str())
