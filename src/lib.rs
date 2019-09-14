@@ -284,7 +284,8 @@ impl Parser {
 
 // TODO: document
 fn get_text_from_nodes(nodes: Vec<Node>) -> String {
-    let mut node_text = "".to_string();
+    // 32 is just a guess here, not really well benchmarked or anything
+    let mut node_text = String::with_capacity(32 * nodes.len());
 
     for node in nodes {
         match node {
