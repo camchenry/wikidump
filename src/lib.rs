@@ -335,8 +335,8 @@ impl Parser {
             text_buf.clear();
         }
 
-        site.pages.par_iter_mut().for_each(|p| {
-            p.revisions.par_iter_mut().for_each(|r| {
+        site.pages.par_iter_mut().for_each(|p: &mut Page| {
+            p.revisions.par_iter_mut().for_each(|r: &mut PageRevision| {
                 if self.process_wiki_text {
                     let parsed_output = self.wiki_config.parse(r.text.as_str());
 
@@ -347,6 +347,8 @@ impl Parser {
                     r.text = r.text.replace("\n", "");
                     r.text = r.text.replace("\r", "");
                 }
+
+                r.text = r.text.trim().to_string();
             })
         });
 
