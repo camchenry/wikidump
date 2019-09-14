@@ -1,4 +1,4 @@
-[![Build Status](__badge_image__)](__badge_url__)
+[![Build Status](https://cmchenry.visualstudio.com/wikidump/_apis/build/status/camchenry.wikidump?branchName=master)](https://cmchenry.visualstudio.com/wikidump/_build/latest?definitionId=1&branchName=master)
 
 # wikidump
 
