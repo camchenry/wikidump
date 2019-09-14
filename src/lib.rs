@@ -265,6 +265,7 @@ impl Parser {
     {
         // Save time by assuming well formed XML is passed in.
         reader.check_end_names(false);
+        reader.trim_markup_names_in_closing_tags(false);
 
         let mut site = Site::new();
         let mut buf = Vec::new();
