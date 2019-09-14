@@ -226,17 +226,9 @@ impl Parser {
                                 .expect("Could not get base wiki URL");
                         }
                         b"text" => {
-                            let text = reader
+                            current_page_revision.text = reader
                                 .read_text(element_name, &mut text_buf)
-                                .expect("Could not get revision text")
-                                .replace("\\t", "\t");
-
-                            if self.remove_newlines {
-                                let text = text.replace("\n", "");
-                                current_page_revision.text = text;
-                            } else {
-                                current_page_revision.text = text;
-                            }
+                                .expect("Could not get revision text");
                         }
                         b"title" => {
                             current_page.title = reader
@@ -274,7 +266,11 @@ impl Parser {
                 p.revisions.par_iter_mut().for_each(|r| {
                     let parsed_output = self.wiki_config.parse(r.text.as_str());
 
-                    r.text = get_text_from_nodes(&parsed_output.nodes);
+                    r.text = get_text_from_nodes(&parsed_output.nodes).replace("\\t", "");
+
+                    if self.remove_newlines {
+                        r.text = r.text.replace("\n", "");
+                    }
                 })
             });
         }
