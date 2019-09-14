@@ -262,19 +262,19 @@ impl Parser {
             text_buf.clear();
         }
 
-        if self.process_wiki_text {
-            site.pages.par_iter_mut().for_each(|p| {
-                p.revisions.par_iter_mut().for_each(|r| {
+        site.pages.par_iter_mut().for_each(|p| {
+            p.revisions.par_iter_mut().for_each(|r| {
+                if self.process_wiki_text {
                     let parsed_output = self.wiki_config.parse(r.text.as_str());
 
                     r.text = get_text_from_nodes(&parsed_output.nodes).replace("\\t", "");
+                }
 
-                    if self.remove_newlines {
-                        r.text = r.text.replace("\n", "");
-                    }
-                })
-            });
-        }
+                if self.remove_newlines {
+                    r.text = r.text.replace("\n", "");
+                }
+            })
+        });
 
         Ok(site)
     }
