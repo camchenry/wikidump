@@ -22,4 +22,5 @@ criterion = "0.3.0"
 
 [[bench]]
 name = "wikipedia"
+path = "benches/wikipedia.rs"
 harness = false
