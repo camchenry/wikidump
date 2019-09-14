@@ -85,21 +85,6 @@ mod tests {
         assert!(revision.text.contains("]]"));
     }
 
-    #[test]
-    fn does_remove_newlines() {
-        let parser = Parser::new().remove_newlines(true);
-
-        let site = parser
-            .parse_file("tests/simplewiki.xml")
-            .expect("Could not parse simplewiki dump");
-
-        for page in site.pages {
-            for revision in page.revisions {
-                assert!(!revision.text.contains("\n"));
-            }
-        }
-    }
-
     // Wikipedia tests
     #[test]
     fn can_parse_enwiki_siteinfo() {
@@ -207,5 +192,45 @@ mod tests {
             .expect("Could not parse mediawiki dump");
 
         assert_eq!(site.pages.len(), 2);
+    }
+
+    const NEWLINE_TEST: &str = r#"
+        <mediawiki xmlns="http://www.mediawiki.org/xml/export-0.10/">
+            <page>
+                <ns>0</ns>
+                <title>alpha</title>
+                <revision>
+                    <text>this is a test     \t\n\r
+                        this is a test \t\r\n</text>
+                </revision>
+            </page>
+        </mediawiki>
+    "#;
+
+    #[test]
+    fn does_remove_newlines() {
+        let parser = Parser::new().remove_newlines(true);
+
+        let site = parser
+            .parse_str(NEWLINE_TEST)
+            .expect("Could not parse newline test str");
+
+        for page in site.pages {
+            for revision in page.revisions {
+                assert!(!revision.text.contains('\n'));
+                assert!(!revision.text.contains('\r'));
+            }
+        }
+
+        let site = parser
+            .parse_file("tests/simplewiki.xml")
+            .expect("Could not parse simplewiki dump");
+
+        for page in site.pages {
+            for revision in page.revisions {
+                assert!(!revision.text.contains('\n'));
+                assert!(!revision.text.contains('\r'));
+            }
+        }
     }
 }

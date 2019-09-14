@@ -345,6 +345,7 @@ impl Parser {
 
                 if self.remove_newlines {
                     r.text = r.text.replace("\n", "");
+                    r.text = r.text.replace("\r", "");
                 }
             })
         });
