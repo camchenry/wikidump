@@ -28,6 +28,7 @@ use parse_wiki_text::{Configuration, ConfigurationSource, Node};
 use quick_xml::events::Event;
 use quick_xml::Reader;
 use rayon::prelude::*;
+use std::io::BufRead;
 use std::path::Path;
 
 type Exception = Box<dyn std::error::Error + 'static>;
@@ -111,6 +112,10 @@ pub struct Parser {
     /// removed from the output. Otherwise, they are turned into actual newline
     /// characters.
     remove_newlines: bool,
+    /// If true, then only pages which are articles (and not Talk or Special
+    /// pages, or any other kind of page) will be included in the final output.
+    /// Any ignored pages will simply be skipped by the parser.
+    exclude_pages: bool,
     /// The specific wiki configuration for parsing.
     wiki_config: Configuration,
 }
@@ -121,6 +126,7 @@ impl Parser {
         Parser {
             process_wiki_text: true,
             remove_newlines: false,
+            exclude_pages: true,
             wiki_config: Configuration::default(),
         }
     }
@@ -144,6 +150,25 @@ impl Parser {
     /// ```
     pub fn process_text(mut self, value: bool) -> Self {
         self.process_wiki_text = value;
+        self
+    }
+
+    /// Sets whether the parser should ignore pages in namespaces that are not
+    /// articles, such as Talk, Special, or User. If enabled, then any page
+    /// which is not an article will be skipped by the parser.
+    ///
+    /// Excluding pages in these namespaces is enabled by default.
+    ///
+    /// # Example
+    /// ```rust
+    /// use wikidump::{Parser, config};
+    ///
+    /// let parser = Parser::new()
+    ///     .use_config(config::wikipedia::english())
+    ///     .exclude_pages(false); // Disable page exclusion
+    /// ```
+    pub fn exclude_pages(mut self, value: bool) -> Self {
+        self.exclude_pages = value;
         self
     }
 
@@ -200,7 +225,34 @@ impl Parser {
     where
         P: AsRef<Path>,
     {
-        let mut reader = Reader::from_file(dump).expect("Could not create XML reader from file");
+        let reader = Reader::from_file(dump).expect("Could not create XML reader from file");
+
+        self.parse(reader)
+    }
+
+    /// Returns all of the parsed data contained in a particular wiki dump file.
+    /// This includes the name of the website, a list of pages, their
+    /// respective contents, and other properties.
+    ///
+    /// # Example
+    /// ```rust
+    /// use wikidump::Parser;
+    /// use std::fs;
+    ///
+    /// let parser = Parser::new();
+    /// let contents = fs::read_to_string("tests/enwiki-articles-partial.xml").unwrap();
+    /// let site = parser.parse_str(contents.as_str());
+    /// ```
+    pub fn parse_str(&self, text: &str) -> Result<Site, Exception> {
+        let reader = Reader::from_str(text);
+
+        self.parse(reader)
+    }
+
+    fn parse<R>(&self, mut reader: Reader<R>) -> Result<Site, Exception>
+    where
+        R: BufRead,
+    {
         // Save time by assuming well formed XML is passed in.
         reader.check_end_names(false);
 
@@ -209,10 +261,14 @@ impl Parser {
         let mut text_buf = Vec::new();
         let mut current_page = Page::new();
         let mut current_page_revision = PageRevision::new();
+        let mut skipping_current_page = false;
 
         loop {
             match reader.read_event(&mut buf) {
                 Ok(Event::Start(ref e)) => {
+                    if skipping_current_page {
+                        continue;
+                    }
                     let element_name = e.name();
 
                     match element_name {
@@ -236,14 +292,31 @@ impl Parser {
                                 .read_text(element_name, &mut text_buf)
                                 .expect("Could not get page title");
                         }
+                        b"ns" => {
+                            if self.exclude_pages {
+                                let ns = reader
+                                    .read_text(element_name, &mut text_buf)
+                                    .expect("Could not get page namespace");
+
+                                if ns != "0" {
+                                    // Skip this page
+                                    skipping_current_page = true;
+                                    continue;
+                                }
+                            }
+                        }
                         _ => {}
                     };
                 }
                 Ok(Event::End(ref e)) => {
                     match e.name() {
                         b"page" => {
-                            site.pages.push(current_page.clone());
-                            current_page.reset();
+                            if !skipping_current_page {
+                                site.pages.push(current_page.clone());
+                                current_page.reset();
+                            }
+
+                            skipping_current_page = false;
                         }
                         b"revision" => {
                             current_page.revisions.push(current_page_revision.clone());

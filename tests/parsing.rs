@@ -31,6 +31,7 @@ mod tests {
     fn can_parse_simplewiki_pages() {
         let parser = Parser::new()
             .use_config(config::wikipedia::simple_english())
+            .exclude_pages(false)
             .remove_newlines(true);
 
         let site = parser
@@ -114,7 +115,9 @@ mod tests {
 
     #[test]
     fn can_parse_enwiki_pages() {
-        let parser = Parser::new().use_config(config::wikipedia::english());
+        let parser = Parser::new()
+            .use_config(config::wikipedia::english())
+            .exclude_pages(false);
 
         let site = parser
             .parse_file("tests/enwiki-articles-partial.xml")
@@ -150,5 +153,59 @@ mod tests {
                 "11,"
             )
         );
+    }
+
+    const MEDIAWIKI_DUMP: &str = r#"
+        <mediawiki xmlns="http://www.mediawiki.org/xml/export-0.10/">
+            <page>
+                <ns>0</ns>
+                <title>alpha</title>
+                <revision>
+                    <text></text>
+                </revision>
+            </page>
+            <page>
+                <ns>42</ns>
+                <title>beta</title>
+                <revision>
+                    <text></text>
+                </revision>
+            </page>
+        </mediawiki>
+    "#;
+
+    #[test]
+    fn can_parse_str() {
+        let parser = Parser::new();
+
+        let site = parser
+            .parse_str(MEDIAWIKI_DUMP)
+            .expect("Could not parse mediawiki dump");
+
+        assert_eq!(site.pages.len(), 1);
+        assert_eq!(site.pages[0].title, "alpha");
+    }
+
+    #[test]
+    fn will_exclude_pages() {
+        let parser = Parser::new();
+
+        let site = parser
+            .parse_str(MEDIAWIKI_DUMP)
+            .expect("Could not parse mediawiki dump");
+
+        assert_eq!(site.pages.len(), 1);
+        assert_eq!(site.pages[0].title, "alpha");
+    }
+
+    #[test]
+    fn will_not_exclude_pages() {
+        let parser = Parser::new().exclude_pages(false);
+
+        let site = parser
+            .parse_str(MEDIAWIKI_DUMP)
+            .expect("Could not parse mediawiki dump");
+
+        assert_eq!(site.pages.len(), 2);
     }
 }
