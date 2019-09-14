@@ -201,7 +201,8 @@ impl Parser {
         P: AsRef<Path>,
     {
         let mut reader = Reader::from_file(dump).expect("Could not create XML reader from file");
-        reader.trim_text(true);
+        // Save time by assuming well formed XML is passed in.
+        reader.check_end_names(false);
 
         let mut site = Site::new();
         let mut buf = Vec::new();
