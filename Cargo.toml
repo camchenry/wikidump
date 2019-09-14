@@ -1,5 +1,8 @@
 [package]
 name = "wikidump"
+description = "A library for parsing Mediawiki XML dumps"
+license = "MIT"
+readme = "README.md"
 version = "0.1.0"
 authors = ["camchenry <camchenry@users.noreply.github.com>"]
 edition = "2018"
