@@ -32,6 +32,27 @@ fn wikipedia_benchmark(c: &mut Criterion) {
     group.finish();
 }
 
+fn compressed_wikipedia_benchmark(c: &mut Criterion) {
+    let mut group = c.benchmark_group("Wikipedia");
+
+    let file_length = File::open("benches/enwiki-10k.xml.bz2")
+        .unwrap()
+        .metadata()
+        .unwrap()
+        .len();
+    group.sample_size(50);
+    group.measurement_time(Duration::new(45, 0));
+    group.throughput(Throughput::Bytes(file_length));
+    group.bench_function("enwiki_10k_bz2_with_parsing_wiki_text", |b| {
+        b.iter(|| parse_wikipedia(black_box("benches/enwiki-10k.xml.bz2"), black_box(true)))
+    });
+    group.bench_function("enwiki_10k_bz2_no_parsing_wiki_text", |b| {
+        b.iter(|| parse_wikipedia(black_box("benches/enwiki-10k.xml.bz2"), black_box(false)))
+    });
+
+    group.finish();
+}
+
 fn simplewiki_benchmark(c: &mut Criterion) {
     let mut group = c.benchmark_group("Simple Wikipedia");
 
@@ -52,5 +73,10 @@ fn simplewiki_benchmark(c: &mut Criterion) {
     group.finish();
 }
 
-criterion_group!(benches, wikipedia_benchmark, simplewiki_benchmark);
+criterion_group!(
+    benches,
+    wikipedia_benchmark,
+    compressed_wikipedia_benchmark,
+    simplewiki_benchmark
+);
 criterion_main!(benches);
