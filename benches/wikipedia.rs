@@ -14,28 +14,19 @@ fn parse_wikipedia(file: &'static str, parse_wiki_text: bool) -> Site {
 fn wikipedia_benchmark(c: &mut Criterion) {
     let mut group = c.benchmark_group("Wikipedia");
 
-    let file_length = File::open("tests/enwiki-articles-partial.xml")
+    let file_length = File::open("benches/enwiki-10k.xml")
         .unwrap()
         .metadata()
         .unwrap()
         .len();
-    group.measurement_time(Duration::new(10, 0));
+    group.sample_size(60);
+    group.measurement_time(Duration::new(15, 0));
     group.throughput(Throughput::Bytes(file_length));
-    group.bench_function("enwiki partial w/ parsing", |b| {
-        b.iter(|| {
-            parse_wikipedia(
-                black_box("tests/enwiki-articles-partial.xml"),
-                black_box(true),
-            )
-        })
+    group.bench_function("enwiki_10k_with_parsing_wiki_text", |b| {
+        b.iter(|| parse_wikipedia(black_box("benches/enwiki-10k.xml"), black_box(true)))
     });
-    group.bench_function("enwiki partial w/ no parsing", |b| {
-        b.iter(|| {
-            parse_wikipedia(
-                black_box("tests/enwiki-articles-partial.xml"),
-                black_box(false),
-            )
-        })
+    group.bench_function("enwiki_10k_no_parsing_wiki_text", |b| {
+        b.iter(|| parse_wikipedia(black_box("benches/enwiki-10k.xml"), black_box(false)))
     });
 
     group.finish();
@@ -51,10 +42,10 @@ fn simplewiki_benchmark(c: &mut Criterion) {
         .len();
     group.measurement_time(Duration::new(10, 0));
     group.throughput(Throughput::Bytes(file_length));
-    group.bench_function("simplewiki partial w/ parsing", |b| {
+    group.bench_function("simplewiki_partial_with_parsing_wiki_text", |b| {
         b.iter(|| parse_wikipedia(black_box("tests/simplewiki.xml"), black_box(true)))
     });
-    group.bench_function("simplewiki partial w/ no parsing", |b| {
+    group.bench_function("simplewiki_partial_no_parsing_wiki_text", |b| {
         b.iter(|| parse_wikipedia(black_box("tests/simplewiki.xml"), black_box(false)))
     });
 
