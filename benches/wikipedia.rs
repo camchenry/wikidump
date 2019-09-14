@@ -6,6 +6,7 @@ use wikidump::{config, Parser, Site};
 fn parse_wikipedia(file: &'static str, parse_wiki_text: bool) -> Site {
     let parser = Parser::new()
         .process_text(parse_wiki_text)
+        .remove_newlines(true)
         .use_config(config::wikipedia::english());
     parser.parse_file(file).expect("Failed to parse")
 }

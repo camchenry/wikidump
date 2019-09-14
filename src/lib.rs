@@ -106,6 +106,10 @@ pub struct Parser {
     /// If true, the wiki text will be parsed and turned into simple text which
     /// could be read naturally.
     process_wiki_text: bool,
+    /// If true and processing wiki text is enabled, then newlines will be
+    /// removed from the output. Otherwise, they are turned into actual newline
+    /// characters.
+    remove_newlines: bool,
     /// The specific wiki configuration for parsing.
     wiki_config: Configuration,
 }
@@ -115,6 +119,7 @@ impl Parser {
     pub fn new<'c>() -> Parser {
         Parser {
             process_wiki_text: true,
+            remove_newlines: false,
             wiki_config: Configuration::default(),
         }
     }
@@ -138,6 +143,26 @@ impl Parser {
     /// ```
     pub fn process_text(mut self, value: bool) -> Self {
         self.process_wiki_text = value;
+        self
+    }
+
+    /// Sets whether the parser should remove newlines or turn them into normal
+    /// newline characters. This will only have an effect if processing wiki
+    /// text is enabled.
+    ///
+    /// Removing newlines is turned off by default.
+    ///
+    /// # Example
+    /// ```rust
+    /// use wikidump::{Parser, config};
+    ///
+    /// let parser = Parser::new()
+    ///     .use_config(config::wikipedia::english())
+    ///     .remove_newlines(true) // Enable newline removal
+    ///     .process_text(true);
+    /// ```
+    pub fn remove_newlines(mut self, value: bool) -> Self {
+        self.remove_newlines = value;
         self
     }
 
@@ -200,9 +225,17 @@ impl Parser {
                                 .expect("Could not get base wiki URL");
                         }
                         b"text" => {
-                            current_page_revision.text = reader
+                            let text = reader
                                 .read_text(element_name, &mut text_buf)
-                                .expect("Could not get revision text");
+                                .expect("Could not get revision text")
+                                .replace("\\t", "\t");
+
+                            if self.remove_newlines {
+                                let text = text.replace("\n", "");
+                                current_page_revision.text = text;
+                            } else {
+                                current_page_revision.text = text;
+                            }
                         }
                         b"title" => {
                             current_page.title = reader
@@ -306,8 +339,4 @@ fn get_text_from_nodes(nodes: Vec<Node>) -> String {
     }
 
     node_text
-        .replace("\\t", "\t")
-        .replace("\\n", "\n")
-        .trim()
-        .to_string()
 }

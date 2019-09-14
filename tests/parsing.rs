@@ -29,7 +29,9 @@ mod tests {
 
     #[test]
     fn can_parse_simplewiki_pages() {
-        let parser = Parser::new().use_config(config::wikipedia::simple_english());
+        let parser = Parser::new()
+            .use_config(config::wikipedia::simple_english())
+            .remove_newlines(true);
 
         let site = parser
             .parse_file("tests/simplewiki.xml")
@@ -53,13 +55,10 @@ mod tests {
             .first()
             .expect("Could not get first revision");
 
-        assert!(revision
-            .text
-            .split(" ")
-            .collect::<Vec<&str>>()
-            .starts_with(&vec!(
-                "Art", "and", "crafts", "is", "a", "creative", "activity"
-            )));
+        assert_eq!(
+            revision.text.split(' ').take(7).collect::<Vec<&str>>(),
+            vec!("Art", "and", "crafts", "is", "a", "creative", "activity")
+        );
     }
 
     #[test]
@@ -83,6 +82,21 @@ mod tests {
 
         assert!(revision.text.contains("[["));
         assert!(revision.text.contains("]]"));
+    }
+
+    #[test]
+    fn does_remove_newlines() {
+        let parser = Parser::new().remove_newlines(true);
+
+        let site = parser
+            .parse_file("tests/simplewiki.xml")
+            .expect("Could not parse simplewiki dump");
+
+        for page in site.pages {
+            for revision in page.revisions {
+                assert!(!revision.text.contains("\n"));
+            }
+        }
     }
 
     // Wikipedia tests
