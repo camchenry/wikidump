@@ -24,11 +24,13 @@
 //! ```
 
 pub mod config;
+use bzip2::read::BzDecoder;
 use parse_wiki_text::{Configuration, ConfigurationSource, Node};
 use quick_xml::events::Event;
 use quick_xml::Reader;
 use rayon::prelude::*;
-use std::io::BufRead;
+use std::fs::File;
+use std::io::{BufRead, BufReader, Read};
 use std::path::Path;
 
 type Exception = Box<dyn std::error::Error + 'static>;
@@ -225,9 +227,17 @@ impl Parser {
     where
         P: AsRef<Path>,
     {
-        let reader = Reader::from_file(dump).expect("Could not create XML reader from file");
+        if is_compressed(&dump) {
+            let file = File::open(dump)?;
+            let reader = BufReader::new(BzDecoder::new(file));
+            let reader = Reader::from_reader(reader);
 
-        self.parse(reader)
+            self.parse(reader)
+        } else {
+            let reader = Reader::from_file(dump).expect("Could not create XML reader from file");
+
+            self.parse(reader)
+        }
     }
 
     /// Returns all of the parsed data contained in a particular wiki dump file.
@@ -409,4 +419,15 @@ fn get_text_from_nodes(nodes: &Vec<Node>) -> String {
     });
 
     node_text
+}
+
+fn is_compressed<P>(dump: &P) -> bool
+where
+    P: AsRef<Path>,
+{
+    let bytes_to_read = 3;
+    let mut buf = vec![0u8; bytes_to_read];
+    let mut file = File::open(dump).expect("Could not open dump file");
+    file.read_exact(&mut buf).expect("Could not read dump file");
+    buf == b"BZh"
 }
