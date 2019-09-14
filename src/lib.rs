@@ -273,7 +273,7 @@ impl Parser {
                 p.revisions.iter_mut().for_each(|r| {
                     let parsed_output = self.wiki_config.parse(r.text.as_str());
 
-                    r.text = get_text_from_nodes(parsed_output.nodes);
+                    r.text = get_text_from_nodes(&parsed_output.nodes);
                 })
             });
         }
@@ -283,11 +283,11 @@ impl Parser {
 }
 
 // TODO: document
-fn get_text_from_nodes(nodes: Vec<Node>) -> String {
+fn get_text_from_nodes(nodes: &Vec<Node>) -> String {
     // 32 is just a guess here, not really well benchmarked or anything
     let mut node_text = String::with_capacity(32 * nodes.len());
 
-    for node in nodes {
+    nodes.iter().for_each(|node| {
         match node {
             Node::Text { value, .. } => node_text.push_str(value),
             Node::CharacterEntity { character, .. } => {
@@ -305,17 +305,17 @@ fn get_text_from_nodes(nodes: Vec<Node>) -> String {
             }
             Node::OrderedList { items, .. } => {
                 for item in items {
-                    node_text.push_str(get_text_from_nodes(item.nodes).as_str());
+                    node_text.push_str(get_text_from_nodes(&item.nodes).as_str());
                 }
             }
             Node::UnorderedList { items, .. } => {
                 for item in items {
-                    node_text.push_str(get_text_from_nodes(item.nodes).as_str());
+                    node_text.push_str(get_text_from_nodes(&item.nodes).as_str());
                 }
             }
             Node::DefinitionList { items, .. } => {
                 for item in items {
-                    node_text.push_str(get_text_from_nodes(item.nodes).as_str());
+                    node_text.push_str(get_text_from_nodes(&item.nodes).as_str());
                 }
             }
             Node::Preformatted { nodes, .. } => {
@@ -337,7 +337,7 @@ fn get_text_from_nodes(nodes: Vec<Node>) -> String {
             | Node::Category { .. }
             | Node::Table { .. } => {}
         }
-    }
+    });
 
     node_text
 }
