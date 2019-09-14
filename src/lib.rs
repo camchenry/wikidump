@@ -27,6 +27,7 @@ pub mod config;
 use parse_wiki_text::{Configuration, ConfigurationSource, Node};
 use quick_xml::events::Event;
 use quick_xml::Reader;
+use rayon::prelude::*;
 use std::path::Path;
 
 type Exception = Box<dyn std::error::Error + 'static>;
@@ -269,8 +270,8 @@ impl Parser {
         }
 
         if self.process_wiki_text {
-            site.pages.iter_mut().for_each(|p| {
-                p.revisions.iter_mut().for_each(|r| {
+            site.pages.par_iter_mut().for_each(|p| {
+                p.revisions.par_iter_mut().for_each(|r| {
                     let parsed_output = self.wiki_config.parse(r.text.as_str());
 
                     r.text = get_text_from_nodes(&parsed_output.nodes);
