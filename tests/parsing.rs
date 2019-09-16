@@ -330,8 +330,6 @@ This is paragraph 2.</text>
 
         let text = &site.pages[1].revisions[0].text;
 
-        println!("{}", text);
-
         assert_eq!(text, "This is paragraph 1.\nThis is paragraph 2.");
     }
 }
