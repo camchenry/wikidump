@@ -1,3 +1,6 @@
+# Version 0.2.2
+* Changed behavior of parsing paragraph breaks so that newlines are preserved.
+
 # Version 0.2.1
 * Changed behavior of parsing headings so that newlines are added before and after the header.
 
