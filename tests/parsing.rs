@@ -282,4 +282,35 @@ mod tests {
             vec!("Art", "and", "crafts", "is", "a", "creative", "activity")
         );
     }
+
+    const TEXT_TEST: &str = r#"
+        <mediawiki xmlns="http://www.mediawiki.org/xml/export-0.10/">
+            <page>
+                <ns>0</ns>
+                <title>alpha</title>
+                <revision>
+                    <text>This is an article.
+== Header ==
+This is text under the header.</text>
+                </revision>
+            </page>
+        </mediawiki>
+    "#;
+
+    #[test]
+    fn turns_headers_into_text_with_newlines() {
+        let parser = Parser::new();
+        let site = parser
+            .parse_str(TEXT_TEST)
+            .expect("Could not parse text test str");
+
+        let text = &site.pages[0].revisions[0].text;
+
+        println!("{}", text);
+
+        assert_eq!(
+            text,
+            "This is an article.\nHeader\nThis is text under the header."
+        );
+    }
 }

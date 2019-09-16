@@ -382,7 +382,11 @@ fn get_text_from_nodes(nodes: &Vec<Node>) -> String {
             Node::ExternalLink { nodes, .. } => {
                 node_text.push_str(get_text_from_nodes(nodes).as_str())
             }
-            Node::Heading { nodes, .. } => node_text.push_str(get_text_from_nodes(nodes).as_str()),
+            Node::Heading { nodes, .. } => {
+                node_text.push_str("\n");
+                node_text.push_str(get_text_from_nodes(nodes).as_str());
+                node_text.push_str("\n");
+            }
             Node::Image { .. } => {
                 // @TODO @Completeness: Allow image text.
                 // Currently not allowed because it's a bit difficult to figure
