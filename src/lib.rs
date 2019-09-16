@@ -375,6 +375,7 @@ fn get_text_from_nodes(nodes: &Vec<Node>) -> String {
     nodes.iter().for_each(|node| {
         match node {
             Node::Text { value, .. } => node_text.push_str(value),
+            Node::ParagraphBreak { .. } => node_text.push_str("\n"),
             Node::CharacterEntity { character, .. } => {
                 node_text.push_str(character.to_string().as_str())
             }
@@ -410,7 +411,6 @@ fn get_text_from_nodes(nodes: &Vec<Node>) -> String {
             | Node::BoldItalic { .. }
             | Node::HorizontalDivider { .. }
             | Node::MagicWord { .. }
-            | Node::ParagraphBreak { .. }
             | Node::Italic { .. }
             | Node::Redirect { .. }
             | Node::Comment { .. }

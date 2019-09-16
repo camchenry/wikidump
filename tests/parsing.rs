@@ -294,6 +294,15 @@ mod tests {
 This is text under the header.</text>
                 </revision>
             </page>
+            <page>
+                <ns>0</ns>
+                <title>beta</title>
+                <revision>
+                    <text>This is paragraph 1.
+
+This is paragraph 2.</text>
+                </revision>
+            </page>
         </mediawiki>
     "#;
 
@@ -306,11 +315,23 @@ This is text under the header.</text>
 
         let text = &site.pages[0].revisions[0].text;
 
-        println!("{}", text);
-
         assert_eq!(
             text,
             "This is an article.\nHeader\nThis is text under the header."
         );
+    }
+
+    #[test]
+    fn turns_paragraph_breaks_into_newlines() {
+        let parser = Parser::new();
+        let site = parser
+            .parse_str(TEXT_TEST)
+            .expect("Could not parse text test str");
+
+        let text = &site.pages[1].revisions[0].text;
+
+        println!("{}", text);
+
+        assert_eq!(text, "This is paragraph 1.\nThis is paragraph 2.");
     }
 }
