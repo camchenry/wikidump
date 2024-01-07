@@ -1,3 +1,6 @@
+# Version 0.3.0
+* Added support for reading bzip2 multi-stream files.
+
 # Version 0.2.2
 * Changed behavior of parsing paragraph breaks so that newlines are preserved.
 
