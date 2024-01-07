@@ -24,7 +24,7 @@
 //! ```
 
 pub mod config;
-use bzip2::read::BzDecoder;
+use bzip2::read::MultiBzDecoder;
 use parse_wiki_text::{Configuration, ConfigurationSource, Node};
 use quick_xml::events::Event;
 use quick_xml::Reader;
@@ -229,7 +229,7 @@ impl Parser {
     {
         if is_compressed(&dump) {
             let file = File::open(dump)?;
-            let reader = BufReader::new(BzDecoder::new(file));
+            let reader = BufReader::new(MultiBzDecoder::new(file));
             let reader = Reader::from_reader(reader);
 
             self.parse(reader)

@@ -16,7 +16,7 @@ azure-devops = { project = "cmchenry/wikidump", pipeline = "camchenry.wikidump",
 quick-xml = "0.16.1"
 parse_wiki_text = "0.1.5"
 rayon = "1.2.0"
-bzip2 = "0.3.3"
+bzip2 = "0.4.4"
 
 [dev-dependencies]
 criterion = "0.3.0"
