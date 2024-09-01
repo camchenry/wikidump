@@ -128,7 +128,7 @@ pub struct Parser {
 
 impl Parser {
     /// Construct a new parser with the default settings.
-    pub fn new<'c>() -> Parser {
+    pub fn new() -> Parser {
         Parser {
             process_wiki_text: true,
             remove_newlines: false,
@@ -373,14 +373,14 @@ impl Parser {
 }
 
 // TODO: document
-fn get_text_from_nodes(nodes: &Vec<Node>) -> String {
+fn get_text_from_nodes(nodes: &[Node]) -> String {
     // 32 is just a guess here, not really well benchmarked or anything
     let mut node_text = String::with_capacity(64 + 64 * nodes.len());
 
     nodes.iter().for_each(|node| {
         match node {
             Node::Text { value, .. } => node_text.push_str(value),
-            Node::ParagraphBreak { .. } => node_text.push_str("\n"),
+            Node::ParagraphBreak { .. } => node_text.push('\n'),
             Node::CharacterEntity { character, .. } => {
                 node_text.push_str(character.to_string().as_str())
             }
@@ -389,9 +389,9 @@ fn get_text_from_nodes(nodes: &Vec<Node>) -> String {
                 node_text.push_str(get_text_from_nodes(nodes).as_str())
             }
             Node::Heading { nodes, .. } => {
-                node_text.push_str("\n");
+                node_text.push('\n');
                 node_text.push_str(get_text_from_nodes(nodes).as_str());
-                node_text.push_str("\n");
+                node_text.push('\n');
             }
             Node::Image { .. } => {
                 // @TODO @Completeness: Allow image text.

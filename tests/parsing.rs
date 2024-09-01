@@ -45,7 +45,7 @@ mod tests {
         let page = site
             .pages
             .iter()
-            .find(|&p| p.title == "Art".to_string())
+            .find(|&p| p.title == *"Art")
             .expect("Could not fetch example page");
         assert_eq!(page.title, "Art");
 
@@ -74,7 +74,7 @@ mod tests {
         let page = site
             .pages
             .iter()
-            .find(|&p| p.title == "Art".to_string())
+            .find(|&p| p.title == *"Art")
             .expect("Could not fetch example page");
 
         let revision = page
@@ -96,7 +96,7 @@ mod tests {
         let page = site
             .pages
             .iter()
-            .find(|&p| p.title == "Art".to_string())
+            .find(|&p| p.title == *"Art")
             .expect("Could not fetch example page");
 
         let revision = page
@@ -137,7 +137,7 @@ mod tests {
         let page = site
             .pages
             .iter()
-            .find(|&p| p.title == "Ricky Minard".to_string())
+            .find(|&p| p.title == *"Ricky Minard")
             .expect("Could not fetch example page");
         assert_eq!(page.title, "Ricky Minard");
 
@@ -287,7 +287,7 @@ mod tests {
         let page = site
             .pages
             .iter()
-            .find(|&p| p.title == "Art".to_string())
+            .find(|&p| p.title == *"Art")
             .expect("Could not fetch example page");
         assert_eq!(page.title, "Art");
 
