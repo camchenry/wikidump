@@ -68,12 +68,14 @@ pub struct PageRevision {
     /// processing wiki text or not, this could either be the raw wiki text
     /// or it could be an interpreted representation.
     pub text: String,
+    pub raw: String,
 }
 
 impl PageRevision {
     fn new() -> PageRevision {
         PageRevision {
             text: "".to_string(),
+            raw: "".to_string(),
         }
     }
 
@@ -351,6 +353,7 @@ impl Parser {
                 if self.process_wiki_text {
                     let parsed_output = self.wiki_config.parse(r.text.as_str());
 
+                    r.raw = r.text.as_str().to_string();
                     r.text = get_text_from_nodes(&parsed_output.nodes).replace("\\t", "");
                 }
 
