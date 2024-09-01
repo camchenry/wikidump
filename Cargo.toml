@@ -9,9 +9,6 @@ authors = ["camchenry <camchenry@users.noreply.github.com>"]
 edition = "2018"
 include = ["Cargo.toml", "README.md", "LICENSE", "src/**/*.rs"]
 
-[badges]
-azure-devops = { project = "cmchenry/wikidump", pipeline = "camchenry.wikidump", build = "1" }
-
 [dependencies]
 quick-xml = "0.36.1"
 parse_wiki_text = "0.1.5"

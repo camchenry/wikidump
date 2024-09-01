@@ -1,5 +1,3 @@
-[![Build Status](https://cmchenry.visualstudio.com/wikidump/_apis/build/status/camchenry.wikidump?branchName=master)](https://cmchenry.visualstudio.com/wikidump/_build/latest?definitionId=1&branchName=master)
-
 # wikidump
 
 This crate processes Mediawiki XML dump files and turns them into easily
@@ -7,6 +5,7 @@ consumed pieces of data for language analysis, natural langauge processing,
 and other applications.
 
 ## Example
+
 ```rust
 let parser = Parser::new()
     .use_config(config::wikipedia::english());
