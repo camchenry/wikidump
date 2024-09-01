@@ -27,7 +27,7 @@ pub mod config;
 use bzip2::read::MultiBzDecoder;
 use parse_wiki_text::{Configuration, ConfigurationSource, Node};
 use quick_xml::events::Event;
-use quick_xml::Reader;
+use quick_xml::reader::Reader;
 use rayon::prelude::*;
 use std::fs::File;
 use std::io::{BufRead, BufReader, Read};
@@ -267,9 +267,10 @@ impl Parser {
     where
         R: BufRead,
     {
+        let config = reader.config_mut();
         // Save time by assuming well formed XML is passed in.
-        reader.check_end_names(false);
-        reader.trim_markup_names_in_closing_tags(false);
+        config.check_end_names = false;
+        config.trim_markup_names_in_closing_tags = false;
 
         let mut site = Site::new();
         let mut buf = Vec::new();
@@ -279,39 +280,28 @@ impl Parser {
         let mut skipping_current_page = false;
 
         loop {
-            match reader.read_event(&mut buf) {
+            match reader.read_event_into(&mut buf) {
                 Ok(Event::Start(ref e)) => {
                     if skipping_current_page {
                         continue;
                     }
-                    let element_name = e.name();
 
-                    match element_name {
+                    match e.name().as_ref() {
                         b"sitename" => {
-                            site.name = reader
-                                .read_text(element_name, &mut text_buf)
-                                .expect("Could not get site name");
+                            // Read text event
+                            site.name = get_text_from_event(&mut reader, &mut text_buf)
                         }
-                        b"base" => {
-                            site.url = reader
-                                .read_text(element_name, &mut text_buf)
-                                .expect("Could not get base wiki URL");
-                        }
+                        b"base" => site.url = get_text_from_event(&mut reader, &mut text_buf),
                         b"text" => {
-                            current_page_revision.text = reader
-                                .read_text(element_name, &mut text_buf)
-                                .expect("Could not get revision text");
+                            current_page_revision.text =
+                                get_text_from_event(&mut reader, &mut text_buf)
                         }
                         b"title" => {
-                            current_page.title = reader
-                                .read_text(element_name, &mut text_buf)
-                                .expect("Could not get page title");
+                            current_page.title = get_text_from_event(&mut reader, &mut text_buf)
                         }
                         b"ns" => {
                             if self.exclude_pages {
-                                let ns = reader
-                                    .read_text(element_name, &mut text_buf)
-                                    .expect("Could not get page namespace");
+                                let ns = get_text_from_event(&mut reader, &mut text_buf);
 
                                 if ns != "0" {
                                     // Skip this page
@@ -324,7 +314,7 @@ impl Parser {
                     };
                 }
                 Ok(Event::End(ref e)) => {
-                    match e.name() {
+                    match e.name().as_ref() {
                         b"page" => {
                             if !skipping_current_page {
                                 site.pages.push(current_page.clone());
@@ -369,6 +359,25 @@ impl Parser {
         });
 
         Ok(site)
+    }
+}
+
+/// Given a reader which has just read a start event, this function will read
+/// the text event which follows it and return the text as a string. This is
+/// useful for quickly reading the text of a simple element.
+fn get_text_from_event<R>(reader: &mut Reader<R>, text_buf: &mut Vec<u8>) -> String
+where
+    R: BufRead,
+{
+    let event = reader.read_event_into(text_buf).unwrap();
+    match event {
+        Event::Text(e) => e.unescape().unwrap().into_owned(),
+        // There was nothing in the text, so just return an empty string
+        Event::End(_) => "".to_string(),
+        _ => panic!(
+            "Unexpected event type (expected text event, got {:?})",
+            event
+        ),
     }
 }
 
