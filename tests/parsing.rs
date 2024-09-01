@@ -86,6 +86,28 @@ mod tests {
         assert!(revision.text.contains("]]"));
     }
 
+    #[test]
+    fn can_access_raw_text() {
+        let parser = Parser::new().process_text(true);
+        let site = parser
+            .parse_file("tests/simplewiki.xml")
+            .expect("Could not parse simplewiki dump");
+
+        let page = site
+            .pages
+            .iter()
+            .find(|&p| p.title == "Art".to_string())
+            .expect("Could not fetch example page");
+
+        let revision = page
+            .revisions
+            .first()
+            .expect("Could not get first revision");
+
+        assert_eq!(&revision.text[..15], "Art and crafts ");
+        assert_eq!(&revision.raw[..15], "[[Category:Art|");
+    }
+
     // Wikipedia tests
     #[test]
     fn can_parse_enwiki_siteinfo() {
