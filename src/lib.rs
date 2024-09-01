@@ -68,6 +68,8 @@ pub struct PageRevision {
     /// processing wiki text or not, this could either be the raw wiki text
     /// or it could be an interpreted representation.
     pub text: String,
+    /// The raw wiki text of the page. This is always the unprocessed, verbatim
+    /// text of the page.
     pub raw: String,
 }
 
