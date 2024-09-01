@@ -372,6 +372,12 @@ impl Parser {
     }
 }
 
+impl Default for Parser {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 // TODO: document
 fn get_text_from_nodes(nodes: &[Node]) -> String {
     // 32 is just a guess here, not really well benchmarked or anything

@@ -9,6 +9,11 @@ mod tests {
     }
 
     #[test]
+    fn can_be_constructed_with_default() {
+        let _parser = Parser::default();
+    }
+
+    #[test]
     fn can_set_parser_options() {
         let _parser = Parser::new()
             .process_text(true)
